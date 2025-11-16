@@ -89,7 +89,7 @@ export default function SummaryScreen({ navigation }) {
                 {/* Header (Título principal) */}
                 <View style={{ paddingTop: 10, marginBottom: 20 }}>
                     <Text style={{ fontSize: 24, fontWeight: 'bold', color: textColor }}>
-                        Summary
+                        Sumário
                     </Text>
                 </View>
 
@@ -102,7 +102,7 @@ export default function SummaryScreen({ navigation }) {
                     alignItems: 'center'
                 }}>
                     <Text style={{ fontSize: 18, color: '#fff', opacity: 0.8, marginBottom: 5 }}>
-                        Total Spent (All Time)
+                        Total Gasto 
                     </Text>
                     <Text style={{ fontSize: 36, fontWeight: 'bold', color: '#fff' }}>
                         {formatCurrency(totalSpent)}
@@ -111,7 +111,7 @@ export default function SummaryScreen({ navigation }) {
 
                 {/* Título da Lista de Transações */}
                 <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor, marginBottom: 15 }}>
-                    Recent Expenses
+                    Despesas Recentes
                 </Text>
                 
                 {/* MAP: Mapeia as transações dentro do ScrollView */}

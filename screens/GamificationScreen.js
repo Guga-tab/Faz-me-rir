@@ -1,75 +1,98 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+// Importe a lógica de gamificação
+import { useFinance } from '../context/FinanceContext'; 
 
 // Cores
 const backgroundColor = '#FDFBF6';
+const mainColor = '#F09A5D';
+const textColor = '#333';
+const goldColor = '#FFD700'; // Cor para destaque (Level)
 
 export default function GamificationScreen({ navigation }) {
-  const totalPoints = 2500;
-  const progress = 0.6; // 60%
+  // 1. Obtém dados de gamificação
+  const { points, currentLevel } = useFinance();
+  
+  // Fórmula simples para o progresso do XP
+  // Por exemplo, de 100 para 400 (próximo nível)
+  const requiredForNextLevel = currentLevel * currentLevel * 100; // Ponto necessário para o nível atual
+  const requiredForCurrentLevel = (currentLevel - 1) * (currentLevel - 1) * 100;
+  const currentProgress = points - requiredForCurrentLevel;
+  const progressGoal = requiredForNextLevel - requiredForCurrentLevel;
+  const progressRatio = currentProgress / progressGoal;
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
-      <ScrollView style={{ padding: 20 }}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={{ marginBottom: 10 }}>
-            <Ionicons name="arrow-back" size={24} color="#333" />
+      <ScrollView style={{ flex: 1, padding: 20 }}>
+        
+        {/* Header */}
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: textColor, marginBottom: 40 }}>
+          Gamification
+        </Text>
+
+        {/* Card Principal: Nível e Pontos */}
+        <View style={{
+          backgroundColor: mainColor,
+          borderRadius: 20,
+          padding: 30,
+          marginBottom: 30,
+          alignItems: 'center',
+          shadowColor: '#000',
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.2,
+          shadowRadius: 5,
+        }}>
+          {/* Nível (Achievements.jpeg) */}
+          <Text style={{ fontSize: 16, color: '#fff', opacity: 0.8, marginBottom: 5 }}>
+            Your Level
+          </Text>
+          <Text style={{ fontSize: 48, fontWeight: 'bold', color: goldColor, marginBottom: 20 }}>
+            {currentLevel}
+          </Text>
+          <Text style={{ fontSize: 18, fontWeight: '500', color: '#fff' }}>
+            {points} XP
+          </Text>
+        </View>
+
+        {/* Progresso para o Próximo Nível */}
+        <View style={{ marginBottom: 30 }}>
+            <Text style={{ fontSize: 14, color: textColor, marginBottom: 5 }}>
+                XP for next level: {currentProgress} / {progressGoal}
+            </Text>
+            <View style={{ height: 10, backgroundColor: '#EFEFEF', borderRadius: 5 }}>
+                <View style={{ 
+                    width: `${progressRatio * 100}%`, 
+                    height: 10, 
+                    backgroundColor: mainColor, 
+                    borderRadius: 5 
+                }} />
+            </View>
+        </View>
+
+
+        {/* Botão de Desafios (Challanges) */}
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Challenges')}
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            backgroundColor: '#fff',
+            padding: 20,
+            borderRadius: 15,
+            marginBottom: 20,
+            borderWidth: 1,
+            borderColor: '#EFEFEF',
+          }}
+        >
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor }}>
+            View Challenges
+          </Text>
+          <Ionicons name="arrow-forward-circle-outline" size={24} color={mainColor} />
         </TouchableOpacity>
         
-        <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#333', marginBottom: 20 }}>
-          Gamification and Achievements
-        </Text>
-
-        {/* Total de Pontos */}
-        <Text style={{ fontSize: 16, color: '#A9A9A9', textAlign: 'center' }}>Total Points</Text>
-        <Text style={{ fontSize: 40, fontWeight: 'bold', color: '#333', textAlign: 'center', marginBottom: 10 }}>
-          {totalPoints}
-        </Text>
-
-        {/* Barra de Progresso */}
-        <View style={{ width: '100%', height: 10, backgroundColor: '#EFEFEF', borderRadius: 5, marginBottom: 5 }}>
-          <View style={{ width: `${progress * 100}%`, height: 10, backgroundColor: '#82D4A3', borderRadius: 5 }} />
-        </View>
-        <Text style={{ fontSize: 14, color: '#A9A9A9', marginBottom: 30 }}>Current Level</Text>
-
-        {/* Conquistas */}
-        <TouchableOpacity style={{ 
-            backgroundColor: '#fff', 
-            padding: 20, 
-            borderRadius: 15, 
-            marginBottom: 20,
-            borderColor: '#EFEFEF',
-            borderWidth: 1,
-        }}>
-            <Text style={{ fontSize: 16, color: '#333' }}>Unlocked achievements</Text>
-        </TouchableOpacity>
-
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 30 }}>
-            <View style={{ width: 60, height: 60, backgroundColor: '#F09A5D', borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
-                 <Ionicons name="lock-closed" size={24} color="#fff" />
-            </View>
-            <View style={{ width: 60, height: 60, backgroundColor: '#F7D06F', borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
-                 <Ionicons name="lock-closed" size={24} color="#fff" />
-            </View>
-             <View style={{ width: 60, height: 60, backgroundColor: '#E87A7A', borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
-                 <Ionicons name="lock-closed" size={24} color="#fff" />
-            </View>
-            <View style={{ width: 60, height: 60, backgroundColor: '#82D4A3', borderRadius: 15 }} />
-        </View>
-
-        {/* Próximos Objetivos */}
-        <Text style={{ fontSize: 18, fontWeight: 'bold', color: '#333', marginBottom: 10 }}>
-          Upcoming goals
-        </Text>
-        <View style={{ 
-            backgroundColor: '#fff', 
-            padding: 20, 
-            borderRadius: 15, 
-            borderColor: '#EFEFEF',
-            borderWidth: 1,
-        }}>
-          <Text style={{ fontSize: 16, color: '#333' }}>Save 3 days in a row level up!</Text>
-        </View>
+        {/* Adicione outras seções da Achievements.jpeg aqui, como Badges/Trophy List */}
 
       </ScrollView>
     </SafeAreaView>

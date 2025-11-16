@@ -41,9 +41,10 @@ export default function WelcomeScreen({ navigation }) {
           onPress={() => navigation.replace('Main')}
           style={{
             backgroundColor: mainColor,
-            paddingVertical: 18,
+            paddingVertical: 10,
             paddingHorizontal: 80,
             borderRadius: 30,
+            bottom: 25,
             width: '80%',
             alignItems: 'center',
             elevation: 3,

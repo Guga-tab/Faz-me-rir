@@ -59,7 +59,7 @@ function MainTabNavigator() {
         tabBarShowLabel: false,
         tabBarStyle: {
           position: 'absolute',
-          bottom: 25,
+          bottom: 0,
           left: 20,
           right: 20,
           elevation: 5,
