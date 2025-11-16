@@ -10,6 +10,7 @@ import HomeScreen from './screens/HomeScreen';
 import SummaryScreen from './screens/SummaryScreen';
 import GamificationScreen from './screens/GamificationScreen';
 import AddExpenseScreen from './screens/AddExpenseScreen';
+import GoalsScreen from './screens/GoalsScreen';
 // (Importe as outras telas quando as criar)
 // ...outras importações
 import SettingsScreen from './screens/SettingsScreen';
@@ -83,19 +84,14 @@ function MainTabNavigator() {
           ),
         }}
       />
-      
+
       {/* Tela Home com botão customizado */}
       <Tab.Screen 
         name="HomeTab" 
         component={HomeScreen} 
         options={{
-          tabBarIcon: ({ focused }) => (
-            <Ionicons name="home" color={focused ? '#fff' : '#eee'} size={30} />
-          ),
-          tabBarButton: (props) => (
-            <CustomTabBarButton {...props}>
-               <Ionicons name="home" color={'#fff'} size={30} />
-            </CustomTabBarButton>
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
@@ -105,24 +101,11 @@ function MainTabNavigator() {
         component={GamificationScreen} 
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="trophy-outline" color={color} size={size} />
+            <Ionicons name="game-controller-outline" color={color} size={size} />
           ),
         }}
       />
-      <Stack.Screen 
-        name="Challenges" 
-        component={ChallengesScreen}
-        options={{ 
-          headerShown: false // O header customizado está na própria tela
-        }}
-      />
-      <Stack.Screen 
-        name="Settings" 
-        component={SettingsScreen}
-        options={{ 
-          headerShown: false // O header customizado está na própria tela
-        }}
-      />
+
     </Tab.Navigator>
   );
 }
@@ -152,13 +135,27 @@ export default function App() {
             headerShown: false 
           }}
         />
+
+        <Stack.Screen 
+          name="Goals" 
+          component={GoalsScreen}
+          options={{ 
+            headerShown: false // O header customizado está na própria tela
+          }}
+        />
+
         <Stack.Screen 
           name="Settings" 
           component={SettingsScreen}
           options={{ 
-            title: 'Settings and Profile',
-            headerStyle: { backgroundColor: backgroundColor },
-            headerShadowVisible: false,
+            headerShown: false // O header customizado está na própria tela
+          }}
+        />
+        <Stack.Screen 
+          name="Challenges" 
+          component={ChallengesScreen}
+          options={{ 
+            headerShown: false // O header customizado está na própria tela
           }}
         />
       </Stack.Navigator>

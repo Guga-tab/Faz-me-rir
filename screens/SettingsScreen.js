@@ -74,7 +74,9 @@ export default function SettingsScreen({ navigation }) {
             paddingVertical: 18,
             borderBottomWidth: 1,
             borderBottomColor: dividerColor,
-          }}>
+          }}
+          onPress={() => navigation.navigate('Goals')}
+          >
             <View>
               <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Change Daily spending limit</Text>
               <Text style={{ fontSize: 12, color: '#A9A9A9', paddingTop: 4 }}>womes peliceratiey</Text>
@@ -115,24 +117,7 @@ export default function SettingsScreen({ navigation }) {
 
         {/* Informações da Versão */}
         <View style={{ marginBottom: 20, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>Aepp version</Text>
-          <TouchableOpacity
-            style={{
-              backgroundColor: mainColor,
-              paddingVertical: 18,
-              borderRadius: 30,
-              alignItems: 'center',
-              elevation: 3,
-              shadowColor: '#000',
-              shadowOffset: { width: 0, height: 2 },
-              shadowOpacity: 0.2,
-              shadowRadius: 3,
-            }}
-          >
-            <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-              Faz-me Rir
-            </Text>
-          </TouchableOpacity>
+          <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>App version: 1.0</Text>
         </View>
         
         <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
