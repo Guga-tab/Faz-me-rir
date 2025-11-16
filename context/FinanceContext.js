@@ -45,9 +45,47 @@ export const FinanceProvider = ({ children }) => {
   // Dados de Gamificação
   const [points, setPoints] = useState(0);
   const [challenges, setChallenges] = useState(initialChallenges);
+  const [goalSuccessDays, setGoalSuccessDays] = useState([]);
   
   // Calcula o nível e o progresso XP atual
   const currentLevel = calculateLevel(points);
+
+  // Função para verificar dias passados e conceder o prêmio
+  const checkPastDaysForGoal = (allTransactions, currentDailyLimit, currentGoalSuccessDays) => {
+    // 1. Encontra todos os dias únicos com transações (exceto o dia atual)
+    const today = new Date().toISOString().split('T')[0];
+    const pastTransactionDates = allTransactions
+      .map(t => t.date.split('T')[0])
+      .filter((date, index, self) => 
+        date !== today && self.indexOf(date) === index
+      );
+
+    let newSuccessfulDays = [...currentGoalSuccessDays];
+    let goalCompletedNow = false;
+    
+    // 2. Itera sobre cada dia passado
+    pastTransactionDates.forEach(date => {
+      // Se o dia já foi marcado como sucesso, ignora
+      if (currentGoalSuccessDays.includes(date)) return; 
+      
+      const totalSpentThatDay = allTransactions
+        .filter(t => t.date.split('T')[0] === date && t.type === 'expense')
+        .reduce((sum, t) => sum + t.amount, 0);
+
+      // 3. Checa o limite (usando o limite atual para simplicidade)
+      if (totalSpentThatDay < currentDailyLimit) {
+        newSuccessfulDays.push(date);
+        goalCompletedNow = true;
+      }
+    });
+
+    if (goalCompletedNow) {
+        // Atualiza o estado de sucesso (será salvo automaticamente pelo useEffect)
+        setGoalSuccessDays(newSuccessfulDays); 
+        return true; // Retorna true se um novo dia foi completado
+    }
+    return false;
+  };
   
   // --- Funções de Persistência (AsyncStorage) ---
 
@@ -61,6 +99,7 @@ export const FinanceProvider = ({ children }) => {
         
         // Carrega dados de gamificação
         setPoints(parsedData.points || 0);
+        setGoalSuccessDays(parsedData.goalSuccessDays || []); // 🚨 NOVO DADO CARREGADO
         // Garante que novos desafios sejam incluídos no estado (mantendo o status de completion)
         const savedChallenges = parsedData.challenges || [];
         const updatedChallenges = initialChallenges.map(initial => {
@@ -81,6 +120,7 @@ export const FinanceProvider = ({ children }) => {
         dailyLimit,
         points,
         challenges, // Salva os desafios
+        goalSuccessDays,
       });
       await AsyncStorage.setItem(STORAGE_KEY, dataToSave);
     } catch (error) {
@@ -100,7 +140,7 @@ export const FinanceProvider = ({ children }) => {
 
   // --- Lógica de Desafios ---
 
-  const checkChallenges = (allTransactions) => {
+  const checkChallenges = (allTransactions, goalDays) => {
     let newPointsEarned = 0;
     
     // Mapeia os desafios e verifica se foram completados
@@ -118,7 +158,10 @@ export const FinanceProvider = ({ children }) => {
             case 'five_expenses':
                 if (allTransactions.length >= 5) isCompleted = true;
                 break;
-            // Outros desafios podem ser adicionados aqui
+            case 'under_limit_day':
+                // Está completo se houver pelo menos 1 dia de sucesso
+                if (goalDays.length >= 1) isCompleted = true; 
+                break;
         }
         
         if (isCompleted) {
@@ -134,6 +177,25 @@ export const FinanceProvider = ({ children }) => {
         setChallenges(updatedChallenges);
     }
   };
+
+  // --- Efeitos Colaterais ---
+
+  // Roda a verificação de dias completados sempre que as transações mudam
+  useEffect(() => {
+    if (transactions.length > 0) {
+        // A função retorna true se um novo dia foi bem-sucedido
+        const newGoalAchieved = checkPastDaysForGoal(transactions, dailyLimit, goalSuccessDays);
+        
+        // Se um novo dia de meta foi atingido, re-verifica os desafios.
+        if (newGoalAchieved) {
+            // Chama a verificação com o estado ATUALIZADO (goalSuccessDays)
+            checkChallenges(transactions, goalSuccessDays.length > 0 ? goalSuccessDays : []);
+        } else {
+            // Caso contrário, apenas verifica os desafios normais de contagem
+            checkChallenges(transactions, goalSuccessDays);
+        }
+    }
+  }, [transactions, dailyLimit]); // Roda se transações ou limite mudarem
   
   // --- Funções de Lógica ---
 

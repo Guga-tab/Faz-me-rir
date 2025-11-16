@@ -19,6 +19,20 @@ const inputBg = '#fff';
 const textColor = '#333';
 const redColor = '#E74C3C'; // Vermelho para o botão Deletar
 
+const inputStyle = {
+    backgroundColor: inputBg,
+    borderRadius: 15,
+    padding: 18, // Aumenta o padding para deixar o input mais alto
+    fontSize: 16, // Um tamanho de fonte confortável
+    color: textColor,
+    marginBottom: 20,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 2,
+    elevation: 2,
+};
+
 export default function EditExpenseScreen({ route, navigation }) {
   // Recebe o ID da transação a ser editada
   const { itemId } = route.params; 
@@ -97,7 +111,7 @@ export default function EditExpenseScreen({ route, navigation }) {
           keyboardType="numeric"
           value={amount}
           onChangeText={setAmount}
-          style={{ /* ... estilos de input */ }}
+          style={inputStyle}
         />
         
         {/* Seção de Seleção de Categoria (reutilizada) */}
@@ -109,8 +123,18 @@ export default function EditExpenseScreen({ route, navigation }) {
                 <TouchableOpacity
                     key={cat.name}
                     onPress={() => setSelectedCategory(cat.name)}
-                    style={{ /* ... estilos de botão de categoria */ }}
-                >
+                    style={{ 
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        padding: 12,
+                        borderRadius: 25,
+                        marginBottom: 10,
+                        minWidth: '48%',
+                        justifyContent: 'center',
+                        backgroundColor: selectedCategory === cat.name ? '#FFEFD8' : inputBg, // Fundo leve
+                        borderWidth: 1,
+                        borderColor: selectedCategory === cat.name ? mainColor : '#E0E0E0', // Borda em mainColor
+                    }}                >
                     <Ionicons name={cat.icon} size={18} color={selectedCategory === cat.name ? '#fff' : textColor} style={{ marginRight: 5 }} />
                     <Text style={{ color: selectedCategory === cat.name ? '#fff' : textColor, fontWeight: '500' }}>
                         {cat.name}
@@ -124,7 +148,7 @@ export default function EditExpenseScreen({ route, navigation }) {
           placeholder="Description (optional)"
           value={description}
           onChangeText={setDescription}
-          style={{ /* ... estilos de input */ }}
+          style={inputStyle}
         />
 
         {/* Botão SALVAR EDIÇÃO */}

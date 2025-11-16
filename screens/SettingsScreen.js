@@ -117,7 +117,7 @@ export default function SettingsScreen({ navigation }) {
 
         {/* Informações da Versão */}
         <View style={{ marginBottom: 20, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>App version: 1.0</Text>
+          <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>App version: 1.1</Text>
         </View>
         
         <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
