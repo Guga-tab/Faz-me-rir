@@ -1,7 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 // 1. Importe o hook para usar o estado global
 import { useFinance } from '../context/FinanceContext'; 
+
+// Lista de Categorias
+const categories = [
+    { name: 'Shopping', icon: 'bag-handle-outline' },
+    { name: 'Food & Drinks', icon: 'fast-food-outline' },
+    { name: 'Transport', icon: 'car-outline' },
+    { name: 'Leisure', icon: 'leaf-outline' },
+    { name: 'House', icon: 'home-outline' },
+];
 
 // Cores
 const backgroundColor = '#FDFBF6';
@@ -16,6 +26,7 @@ export default function AddExpenseScreen({ navigation }) {
   // 2. Defina os estados locais para o formulário
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
   
   // 3. Crie a função que faz a lógica
   const handleSaveExpense = () => {
@@ -32,7 +43,7 @@ export default function AddExpenseScreen({ navigation }) {
           amount: numericAmount,
           description: description || 'Sem descrição',
           type: 'expense', // Assume que é um gasto (você pode adicionar um seletor no futuro)
-          category: 'Transporte', // Valor de exemplo
+          category: selectedCategory, // Valor de exemplo
       };
 
       addTransaction(newTransaction); // SALVA OS DADOS no Contexto/AsyncStorage
@@ -72,15 +83,52 @@ export default function AddExpenseScreen({ navigation }) {
             marginBottom: 20,
             borderColor: '#EFEFEF',
             borderWidth: 1,
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'space-between',
             alignItems: 'center'
         }}>
-          <Text style={{ fontSize: 16, color: '#A9A9A9' }}>Category</Text>
-          <View style={{ flexDirection: 'row' }}>
-            <Text style={{ marginRight: 10 }}>Transport 🚗</Text>
-            <Text>Leisure 🌳</Text>
-          </View>
+          <Text style={{ fontSize: 16, fontWeight: '500', color: textColor, marginBottom: 10 }}>
+            Select Category:
+          </Text>
+            <View style={{ 
+                flexDirection: 'row', 
+                flexWrap: 'wrap', 
+                marginBottom: 30,
+                justifyContent: 'space-between'
+            }}>
+                {categories.map((cat) => (
+                    <TouchableOpacity
+                        key={cat.name}
+                        onPress={() => setSelectedCategory(cat.name)}
+                        style={{
+                            backgroundColor: selectedCategory === cat.name ? mainColor : '#fff',
+                            padding: 12,
+                            borderRadius: 10,
+                            marginBottom: 10,
+                            borderWidth: 1,
+                            borderColor: selectedCategory === cat.name ? mainColor : '#EFEFEF',
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            minWidth: 100,
+                            justifyContent: 'center',
+                            
+                        }}
+                    >
+                        <Ionicons 
+                            name={cat.icon} 
+                            size={18} 
+                            color={selectedCategory === cat.name ? '#fff' : textColor} 
+                            style={{ marginRight: 5 }} 
+                        />
+                        <Text style={{ 
+                            color: selectedCategory === cat.name ? '#fff' : textColor, 
+                            fontWeight: '500' 
+                        }}>
+                            {cat.name}
+                        </Text>
+                    </TouchableOpacity>
+                ))}
+            </View>
         </View>
         
         {/* Input Description */}
