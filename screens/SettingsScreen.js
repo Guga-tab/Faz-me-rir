@@ -49,7 +49,7 @@ export default function SettingsScreen({ navigation }) {
             color: textColor, 
             marginLeft: 10 
           }}>
-            Settings and Profile
+            Configurações e Perfil
           </Text>
         </View>
 

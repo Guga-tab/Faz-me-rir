@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { View, TouchableOpacity } from 'react-native';
 
 // Importe suas telas
+import WelcomeScreen from './screens/WelcomeScreen';
 import HomeScreen from './screens/HomeScreen';
 import SummaryScreen from './screens/SummaryScreen';
 import GamificationScreen from './screens/GamificationScreen';
@@ -119,6 +120,13 @@ export default function App() {
           cardStyle: { backgroundColor: backgroundColor },
         }}
       >
+
+        <Stack.Screen 
+          name="Welcome" 
+          component={WelcomeScreen} 
+          options={{ headerShown: false }} // Tela de boas-vindas não tem header
+        />
+
         {/* As telas da TabBar */}
         <Stack.Screen 
           name="Main" 
@@ -137,20 +145,13 @@ export default function App() {
         />
 
         <Stack.Screen 
-          name="Goals" 
-          component={GoalsScreen}
-          options={{ 
-            headerShown: false // O header customizado está na própria tela
-          }}
-        />
-
-        <Stack.Screen 
           name="Settings" 
           component={SettingsScreen}
           options={{ 
             headerShown: false // O header customizado está na própria tela
           }}
         />
+
         <Stack.Screen 
           name="Challenges" 
           component={ChallengesScreen}
@@ -158,6 +159,15 @@ export default function App() {
             headerShown: false // O header customizado está na própria tela
           }}
         />
+        
+        <Stack.Screen 
+          name="Goals" 
+          component={GoalsScreen}
+          options={{ 
+            headerShown: false // O header customizado está na própria tela
+          }}
+        />
+
       </Stack.Navigator>
     </NavigationContainer>
   );

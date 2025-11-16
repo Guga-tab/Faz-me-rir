@@ -58,7 +58,7 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Add Expense
+            Adicionar Despesa
           </Text>
         </TouchableOpacity>
 

@@ -48,7 +48,7 @@ export default function SummaryScreen() {
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView style={{ padding: 20 }}>
         <Text style={{ fontSize: 28, fontWeight: 'bold', color: '#333', marginBottom: 20 }}>
-          Expense List and Edit
+          Editar lista de despesas
         </Text>
 
         {/* Filtros */}
