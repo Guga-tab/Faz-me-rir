@@ -1,13 +1,53 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+// 1. Importe o hook para acessar o estado global
+import { useFinance } from '../context/FinanceContext'; 
 
 // Cores
 const backgroundColor = '#FDFBF6';
 const mainColor = '#F09A5D';
 const textColor = '#333';
 
+// Função auxiliar para calcular métricas
+const calculateMetrics = (transactions, dailyLimit) => {
+    // Pega a data de hoje no formato YYYY-MM-DD
+    const today = new Date().toISOString().split('T')[0]; 
+    let spentToday = 0;
+    
+    transactions.forEach(t => {
+        // Pega a data da transação
+        const transactionDate = t.date.split('T')[0];
+        
+        // Verifica se é um gasto e se é de hoje
+        if (transactionDate === today && t.type === 'expense') {
+            spentToday += t.amount;
+        }
+        // Nota: Ganhos (type: 'income') seriam incluídos aqui, se você os implementasse
+    });
+    
+    // Cálculo principal: Saldo Diário = Limite - Gasto de Hoje
+    const dailyBalance = dailyLimit - spentToday;
+    
+    return {
+        spentToday,
+        dailyBalance
+    };
+};
+
 export default function HomeScreen({ navigation }) {
+  // 2. Use o hook para obter os dados
+  const { transactions, dailyLimit } = useFinance(); 
+
+  // 3. Calcule as métricas usando useMemo (para evitar recálculos desnecessários)
+  const { spentToday, dailyBalance } = useMemo(() => 
+    calculateMetrics(transactions, dailyLimit)
+  , [transactions, dailyLimit]);
+  
+  // Função de formatação para moeda
+  const formatCurrency = (value) => 
+    `R$${value.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}`;
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <View style={{ flex: 1, padding: 20, alignItems: 'center' }}>
@@ -22,20 +62,20 @@ export default function HomeScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* Daily Balance */}
+        {/* Daily Balance (SALDO DIÁRIO CALCULADO) */}
         <View style={{ alignItems: 'center', marginBottom: 30 }}>
-          <Text style={{ fontSize: 48, fontWeight: 'bold', color: textColor }}>
-            24,00
+          <Text style={{ fontSize: 48, fontWeight: 'bold', color: dailyBalance >= 0 ? textColor : 'red' }}>
+            {formatCurrency(dailyBalance)}
           </Text>
           <Text style={{ fontSize: 16, color: '#A9A9A9' }}>
-            Daily Balance
+            Daily Balance (Limit: {formatCurrency(dailyLimit)})
           </Text>
         </View>
 
-        {/* Total Spent */}
+        {/* Total Spent (TOTAL GASTO CALCULADO) */}
         <View style={{ alignItems: 'center', marginBottom: 50 }}>
           <Text style={{ fontSize: 48, fontWeight: 'bold', color: textColor }}>
-            15,000
+            {formatCurrency(spentToday)}
           </Text>
           <Text style={{ fontSize: 16, color: '#A9A9A9' }}>
             Total Spent Today
@@ -58,7 +98,7 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Adicionar Despesa
+            Add Expense
           </Text>
         </TouchableOpacity>
 

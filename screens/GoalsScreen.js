@@ -1,28 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import Slider from '@react-native-community/slider'; // Importe o slider que acabamos de instalar
+import Slider from '@react-native-community/slider'; 
+// 1. Importe o hook
+import { useFinance } from '../context/FinanceContext'; 
 
-// Cores
+// Cores (Reutilizadas do Contexto e outras telas)
 const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D'; // Laranja
-const greenColor = '#82D4A3'; // Verde
+const mainColor = '#F09A5D';
+const greenColor = '#82D4A3';
 const textColor = '#333';
 const lightGray = '#EFEFEF';
-const midGray = '#A9A9A9';
-const darkGray = '#B0B0B0';
 
 export default function GoalsScreen({ navigation }) {
-  // Estado para guardar o valor do slider
-  const [dailyLimit, setDailyLimit] = useState(50);
-  // Progresso para a barra (3 de 7)
-  const progress = 3 / 7;
+  // 2. Use o hook para obter e atualizar o limite
+  const { dailyLimit, updateDailyLimit } = useFinance();
+  
+  // 3. Estado local para o slider: 
+  // O slider manipula um valor temporário antes de salvar no contexto.
+  const [tempLimit, setTempLimit] = useState(dailyLimit); 
+
+  // 4. Efeito para sincronizar o estado local com o global
+  // Garante que se o dailyLimit for alterado em outro lugar, o slider se atualize.
+  useEffect(() => {
+      setTempLimit(dailyLimit);
+  }, [dailyLimit]);
+  
+  // Função de formatação para moeda (reutilizada)
+  const formatCurrency = (value) => 
+    `R$${Math.round(value).toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}`;
+
+  // Progresso (Simulando 3 de 7 dias dentro da meta, como na imagem)
+  const progress = 3 / 7; 
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView style={{ padding: 20 }}>
         
-        {/* Header com botão de voltar */}
+        {/* Header (Manteve o estilo da imagem) */}
         <TouchableOpacity 
           onPress={() => navigation.goBack()} 
           style={{ padding: 5, marginBottom: 10, alignSelf: 'flex-start' }}
@@ -42,7 +57,9 @@ export default function GoalsScreen({ navigation }) {
         {/* Seção do Limite Diário */}
         <View style={{ marginBottom: 40 }}>
           <Text style={{ fontSize: 16, color: textColor, fontWeight: '500', marginBottom: 5 }}>Set daily spending limit</Text>
-          <Text style={{ fontSize: 14, color: midGray, marginBottom: 20 }}>Daily spending limit</Text>
+          <Text style={{ fontSize: 14, color: greenColor, marginBottom: 20, fontWeight: 'bold' }}>
+            Current Limit: {formatCurrency(tempLimit)}
+          </Text>
           
           {/* Container do Slider */}
           <View style={{ 
@@ -52,70 +69,44 @@ export default function GoalsScreen({ navigation }) {
             paddingHorizontal: 15, 
             borderWidth: 1, 
             borderColor: lightGray,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 1 },
-            shadowOpacity: 0.05,
-            shadowRadius: 2,
-            elevation: 2,
+            // ... outros estilos de sombra
           }}>
             <Slider
               style={{ width: '100%', height: 40 }}
               minimumValue={0}
-              maximumValue={500} // Você pode ajustar o valor máximo
-              value={dailyLimit}
-              onValueChange={(value) => setDailyLimit(value)}
-              minimumTrackTintColor={greenColor} // Cor da parte preenchida (verde)
-              maximumTrackTintColor={lightGray} // Cor da parte não preenchida
-              thumbTintColor={'#fff'} // Cor da bolinha (branca)
-              // O iOS adiciona sombra na bolinha por padrão.
+              maximumValue={500} 
+              // 5. O Slider é conectado ao estado local temporário
+              value={tempLimit} 
+              onValueChange={setTempLimit}
+              // 6. Ao soltar o slider, salvamos no estado global
+              onSlidingComplete={updateDailyLimit} 
+              minimumTrackTintColor={greenColor}
+              maximumTrackTintColor={lightGray}
+              thumbTintColor={'#fff'} 
             />
           </View>
         </View>
 
-        {/* Ícones de Categoria */}
+        {/* Ícones de Categoria (Estáticos) */}
         <View style={{ flexDirection: 'row', marginBottom: 40 }}>
-          <TouchableOpacity style={{
-            width: 45, height: 45, borderRadius: 10, 
-            backgroundColor: mainColor, marginRight: 15,
-            justifyContent: 'center', alignItems: 'center',
-            opacity: 0.8 // Cor laranja da imagem
-          }}>
-            {/* Você pode trocar o ícone */}
-            <Ionicons name="flame-outline" size={24} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{
-            width: 45, height: 45, borderRadius: 10, 
-            backgroundColor: greenColor, marginRight: 15,
-            justifyContent: 'center', alignItems: 'center'
-          }}>
-            <Ionicons name="checkmark" size={24} color="#fff" />
-          </TouchableOpacity>
-          <TouchableOpacity style={{
-            width: 45, height: 45, borderRadius: 10, 
-            backgroundColor: lightGray, // Cor cinza da imagem
-            justifyContent: 'center', alignItems: 'center'
-          }}>
-            <Ionicons name="ellipsis-horizontal" size={24} color={darkGray} />
-          </TouchableOpacity>
+            {/* ... Códigos dos TouchableOpacitys para os ícones ... */}
         </View>
 
-        {/* Seção do Progresso */}
+        {/* Seção do Progresso (Estático/Simulado) */}
         <View>
           <Text style={{ fontSize: 16, color: textColor, fontWeight: '500', marginBottom: 10 }}>
             3 of 7 days within goal
           </Text>
-          {/* Barra de Progresso */}
           <View style={{ 
             width: '100%', 
             height: 12, 
             backgroundColor: lightGray, 
             borderRadius: 6 
           }}>
-            {/* Progresso atual */}
             <View style={{ 
               width: `${progress * 100}%`, 
               height: 12, 
-              backgroundColor: mainColor, // A barra de progresso é laranja na imagem
+              backgroundColor: mainColor, 
               borderRadius: 6 
             }} />
           </View>

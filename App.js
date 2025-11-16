@@ -4,16 +4,15 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { View, TouchableOpacity } from 'react-native';
+import { FinanceProvider } from './context/FinanceContext'; // Importe o Provider
 
-// Importe suas telas
+// telas
 import WelcomeScreen from './screens/WelcomeScreen';
 import HomeScreen from './screens/HomeScreen';
 import SummaryScreen from './screens/SummaryScreen';
 import GamificationScreen from './screens/GamificationScreen';
 import AddExpenseScreen from './screens/AddExpenseScreen';
 import GoalsScreen from './screens/GoalsScreen';
-// (Importe as outras telas quando as criar)
-// ...outras importações
 import SettingsScreen from './screens/SettingsScreen';
 import ChallengesScreen from './screens/ChallengesScreen.js';
 
@@ -114,61 +113,63 @@ function MainTabNavigator() {
 // Navegador principal do App (Stack)
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          cardStyle: { backgroundColor: backgroundColor },
-        }}
-      >
-
-        <Stack.Screen 
-          name="Welcome" 
-          component={WelcomeScreen} 
-          options={{ headerShown: false }} // Tela de boas-vindas não tem header
-        />
-
-        {/* As telas da TabBar */}
-        <Stack.Screen 
-          name="Main" 
-          component={MainTabNavigator} 
-          options={{ headerShown: false }}
-        />
-        
-        {/* Telas "Modais" (que abrem por cima) */}
-        <Stack.Screen 
-          name="AddExpense" 
-          component={AddExpenseScreen}
-          options={{ 
-            presentation: 'modal', 
-            headerShown: false 
+    <FinanceProvider>
+      <NavigationContainer>
+        <Stack.Navigator
+          screenOptions={{
+            cardStyle: { backgroundColor: backgroundColor },
           }}
-        />
+        >
 
-        <Stack.Screen 
-          name="Settings" 
-          component={SettingsScreen}
-          options={{ 
-            headerShown: false // O header customizado está na própria tela
-          }}
-        />
+          <Stack.Screen 
+            name="Welcome" 
+            component={WelcomeScreen} 
+            options={{ headerShown: false }} // Tela de boas-vindas não tem header
+          />
 
-        <Stack.Screen 
-          name="Challenges" 
-          component={ChallengesScreen}
-          options={{ 
-            headerShown: false // O header customizado está na própria tela
-          }}
-        />
-        
-        <Stack.Screen 
-          name="Goals" 
-          component={GoalsScreen}
-          options={{ 
-            headerShown: false // O header customizado está na própria tela
-          }}
-        />
+          {/* As telas da TabBar */}
+          <Stack.Screen 
+            name="Main" 
+            component={MainTabNavigator} 
+            options={{ headerShown: false }}
+          />
+          
+          {/* Telas "Modais" (que abrem por cima) */}
+          <Stack.Screen 
+            name="AddExpense" 
+            component={AddExpenseScreen}
+            options={{ 
+              presentation: 'modal', 
+              headerShown: false 
+            }}
+          />
 
-      </Stack.Navigator>
-    </NavigationContainer>
+          <Stack.Screen 
+            name="Settings" 
+            component={SettingsScreen}
+            options={{ 
+              headerShown: false // O header customizado está na própria tela
+            }}
+          />
+
+          <Stack.Screen 
+            name="Challenges" 
+            component={ChallengesScreen}
+            options={{ 
+              headerShown: false // O header customizado está na própria tela
+            }}
+          />
+
+          <Stack.Screen 
+            name="Goals" 
+            component={GoalsScreen}
+            options={{ 
+              headerShown: false // O header customizado está na própria tela
+            }}
+          />
+
+        </Stack.Navigator>
+      </NavigationContainer>
+    </FinanceProvider>
   );
 }
