@@ -15,6 +15,7 @@ import AddExpenseScreen from './screens/AddExpenseScreen';
 import GoalsScreen from './screens/GoalsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ChallengesScreen from './screens/ChallengesScreen.js';
+import EditExpenseScreen from './screens/EditExpenseScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -165,6 +166,14 @@ export default function App() {
             component={GoalsScreen}
             options={{ 
               headerShown: false // O header customizado está na própria tela
+            }}
+          />
+          <Stack.Screen 
+            name="EditExpense" 
+            component={EditExpenseScreen}
+            options={{ 
+                presentation: 'modal', // Abre como modal para edição
+                headerShown: false 
             }}
           />
 

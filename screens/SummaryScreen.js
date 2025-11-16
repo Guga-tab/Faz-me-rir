@@ -15,7 +15,7 @@ const formatCurrency = (value) =>
     `R$${value.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}`;
 
 // Componente para renderizar cada item da lista (Sem padding horizontal aqui)
-const TransactionItem = ({ item }) => {
+const TransactionItem = ({ item, navigation }) => {
     const date = new Date(item.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
     const isExpense = item.type === 'expense';
     const amountColor = isExpense ? redColor : mainColor; 
@@ -23,7 +23,9 @@ const TransactionItem = ({ item }) => {
     const iconName = item.category === 'Transporte' ? 'car-outline' : 'basket-outline';
     
     return (
-        <View style={{
+        <TouchableOpacity 
+        onPress={() => navigation.navigate('EditExpense', { itemId: item.id })} // Navega para a tela de edição
+        style={{
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
@@ -64,7 +66,7 @@ const TransactionItem = ({ item }) => {
             <Text style={{ fontSize: 16, fontWeight: 'bold', color: amountColor }}>
                 {sign}{formatCurrency(item.amount)}
             </Text>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -117,7 +119,11 @@ export default function SummaryScreen({ navigation }) {
                 {/* MAP: Mapeia as transações dentro do ScrollView */}
                 {transactions.length > 0 ? (
                     transactions.map(item => (
-                        <TransactionItem key={item.id} item={item} />
+                        <TransactionItem 
+                            key={item.id} 
+                            item={item} 
+                            navigation={navigation} // 🚨 PASSA A NAVEGAÇÃO
+                        />
                     ))
                 ) : (
                     // Componente de Lista Vazia

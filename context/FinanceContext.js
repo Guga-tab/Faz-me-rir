@@ -160,7 +160,24 @@ export const FinanceProvider = ({ children }) => {
   const updateDailyLimit = (newLimit) => {
     setDailyLimit(newLimit);
   };
+
+  // Funções de Lógica (Edição/Exclusão)
+  const editTransaction = (updatedTransaction) => {
+    setTransactions(prev => 
+        prev.map(t => 
+            t.id === updatedTransaction.id ? updatedTransaction : t
+        )
+    );
+    // Não é necessário chamar checkChallenges aqui, pois o ponto não muda.
+  };
   
+  const deleteTransaction = (id) => {
+        setTransactions(prev => prev.filter(t => t.id !== id));
+        // Recalcular desafios se a exclusão puder afetar um desafio de contagem (Ex: 5 despesas)
+        // Por simplicidade, podemos re-verificar todos os desafios após a exclusão.
+        // checkChallenges(transactions.filter(t => t.id !== id)); 
+  };  
+
   return (
     <FinanceContext.Provider
       value={{
@@ -171,6 +188,8 @@ export const FinanceProvider = ({ children }) => {
         challenges, // Novo
         addTransaction,
         updateDailyLimit,
+        editTransaction, 
+        deleteTransaction,
       }}
     >
       {children}
