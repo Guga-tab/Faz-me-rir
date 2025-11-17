@@ -36,3 +36,22 @@ Você precisará ter o **Node.js** e o **Expo CLI** instalados em sua máquina.
 
 ```bash
 npm install -g expo-cli
+```
+
+## Tutorial de execução
+```bash
+# Clone
+git clone [LINK_DO_REPOSITORIO]
+
+# Acesse
+cd FazMeRir
+
+# Instale dependências
+npm install
+# ou
+yarn install
+
+# Execute o projeto
+npm start
+# ou
+npx expo start
