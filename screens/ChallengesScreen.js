@@ -73,7 +73,7 @@ export default function ChallengesScreen({ navigation }) {
                     color: textColor, 
                     marginBottom: 30,
                 }}>
-                    Challenges
+                    Desafios
                 </Text>
 
                 {/* Lista de Desafios Mapeada */}
@@ -84,7 +84,7 @@ export default function ChallengesScreen({ navigation }) {
                     
                     {challenges.length === 0 && (
                         <View style={{ alignItems: 'center', marginTop: 50 }}>
-                            <Text style={{ color: '#A9A9A9' }}>No challenges available.</Text>
+                            <Text style={{ color: '#A9A9A9' }}>Sem desafios disponíveis</Text>
                         </View>
                     )}
                 </View>

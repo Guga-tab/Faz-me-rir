@@ -55,7 +55,7 @@ export default function HomeScreen({ navigation }) {
         {/* Header */}
         <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40 }}>
           <Text style={{ fontSize: 24, fontWeight: 'bold', color: textColor }}>
-            Home
+            Início
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Settings')}>
             <Ionicons name="person-circle-outline" size={30} color={textColor} />
@@ -68,7 +68,7 @@ export default function HomeScreen({ navigation }) {
             {formatCurrency(dailyBalance)}
           </Text>
           <Text style={{ fontSize: 16, color: '#A9A9A9' }}>
-            Daily Balance (Limit: {formatCurrency(dailyLimit)})
+            Saldo diário (Limite: {formatCurrency(dailyLimit)})
           </Text>
         </View>
 
@@ -78,7 +78,7 @@ export default function HomeScreen({ navigation }) {
             {formatCurrency(spentToday)}
           </Text>
           <Text style={{ fontSize: 16, color: '#A9A9A9' }}>
-            Total Spent Today
+            Total Gasto Hoje
           </Text>
         </View>
 
@@ -98,7 +98,7 @@ export default function HomeScreen({ navigation }) {
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Add Expense
+            Adicionar Despesa
           </Text>
         </TouchableOpacity>
 

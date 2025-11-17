@@ -7,10 +7,10 @@ import { useFinance } from '../context/FinanceContext';
 // Lista de Categorias
 const categories = [
     { name: 'Shopping', icon: 'bag-handle-outline' },
-    { name: 'Food & Drinks', icon: 'fast-food-outline' },
-    { name: 'Transport', icon: 'car-outline' },
-    { name: 'Leisure', icon: 'leaf-outline' },
-    { name: 'House', icon: 'home-outline' },
+    { name: 'Comida & Bebida', icon: 'fast-food-outline' },
+    { name: 'Transporte', icon: 'car-outline' },
+    { name: 'Lazer', icon: 'leaf-outline' },
+    { name: 'Casa', icon: 'home-outline' },
 ];
 
 // Cores
@@ -55,12 +55,12 @@ export default function AddExpenseScreen({ navigation }) {
       <View style={{ flex: 1, padding: 20 }}>
 
         <Text style={{ fontSize: 28, fontWeight: 'bold', color: textColor, textAlign: 'center', marginVertical: 30 }}>
-          Add Expense
+          Adicionar Despesa
         </Text>
 
         {/* Input Amount */}
         <TextInput
-          placeholder="Amount"
+          placeholder="Valor"
           keyboardType="numeric"
           value={amount}
           onChangeText={setAmount} // Conecta ao estado
@@ -88,7 +88,7 @@ export default function AddExpenseScreen({ navigation }) {
             alignItems: 'center'
         }}>
           <Text style={{ fontSize: 16, fontWeight: '500', color: textColor, marginBottom: 10 }}>
-            Select Category:
+            Selecionar Categoria:
           </Text>
             <View style={{ 
                 flexDirection: 'row', 
@@ -133,7 +133,7 @@ export default function AddExpenseScreen({ navigation }) {
         
         {/* Input Description */}
         <TextInput
-          placeholder="Description (optional)"
+          placeholder="Descrição (opcional)"
           value={description}
           onChangeText={setDescription} // Conecta ao estado
           style={{
@@ -164,7 +164,7 @@ export default function AddExpenseScreen({ navigation }) {
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Save
+            Salvar
           </Text>
         </TouchableOpacity>
         

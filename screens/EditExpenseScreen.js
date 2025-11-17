@@ -6,8 +6,8 @@ import { useFinance } from '../context/FinanceContext';
 // Lista de Categorias (Reutilizada de AddExpenseScreen)
 const categories = [
     { name: 'Shopping', icon: 'bag-handle-outline' },
-    { name: 'Food & Drinks', icon: 'fast-food-outline' },
-    { name: 'Transport', icon: 'car-outline' },
+    { name: 'Comida & Bebida', icon: 'fast-food-outline' },
+    { name: 'Transporte', icon: 'car-outline' },
     { name: 'Lazer', icon: 'leaf-outline' },
     { name: 'Casa', icon: 'home-outline' },
 ];
@@ -102,12 +102,12 @@ export default function EditExpenseScreen({ route, navigation }) {
       <ScrollView contentContainerStyle={{ padding: 20 }}>
         
         <Text style={{ fontSize: 28, fontWeight: 'bold', color: textColor, textAlign: 'center', marginVertical: 20 }}>
-          Edit Expense
+          Editar Despesa
         </Text>
 
         {/* Input Amount (preenchido) */}
         <TextInput
-          placeholder="Amount"
+          placeholder="Valor"
           keyboardType="numeric"
           value={amount}
           onChangeText={setAmount}
@@ -116,7 +116,7 @@ export default function EditExpenseScreen({ route, navigation }) {
         
         {/* Seção de Seleção de Categoria (reutilizada) */}
         <Text style={{ fontSize: 16, fontWeight: '500', color: textColor, marginBottom: 10 }}>
-            Category:
+            Categoria:
         </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 30, justifyContent: 'space-between' }}>
             {categories.map((cat) => (
@@ -145,7 +145,7 @@ export default function EditExpenseScreen({ route, navigation }) {
 
         {/* Input Description (preenchido) */}
         <TextInput
-          placeholder="Description (optional)"
+          placeholder="Descrição (opcional)"
           value={description}
           onChangeText={setDescription}
           style={inputStyle}
@@ -163,7 +163,7 @@ export default function EditExpenseScreen({ route, navigation }) {
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Save Changes
+            Salvar Mudanças
           </Text>
         </TouchableOpacity>
         
@@ -178,7 +178,7 @@ export default function EditExpenseScreen({ route, navigation }) {
           }}
         >
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Delete Expense
+            Deletar Despesa
           </Text>
         </TouchableOpacity>
         

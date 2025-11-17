@@ -28,7 +28,7 @@ export default function GamificationScreen({ navigation }) {
         
         {/* Header */}
         <Text style={{ fontSize: 24, fontWeight: 'bold', color: textColor, marginBottom: 40 }}>
-          Gamification
+          Jogatina
         </Text>
 
         {/* Card Principal: Nível e Pontos */}
@@ -45,7 +45,7 @@ export default function GamificationScreen({ navigation }) {
         }}>
           {/* Nível (Achievements.jpeg) */}
           <Text style={{ fontSize: 16, color: '#fff', opacity: 0.8, marginBottom: 5 }}>
-            Your Level
+            Seu Nível
           </Text>
           <Text style={{ fontSize: 48, fontWeight: 'bold', color: goldColor, marginBottom: 20 }}>
             {currentLevel}
@@ -58,7 +58,7 @@ export default function GamificationScreen({ navigation }) {
         {/* Progresso para o Próximo Nível */}
         <View style={{ marginBottom: 30 }}>
             <Text style={{ fontSize: 14, color: textColor, marginBottom: 5 }}>
-                XP for next level: {currentProgress} / {progressGoal}
+                XP para o próximo nível: {currentProgress} / {progressGoal}
             </Text>
             <View style={{ height: 10, backgroundColor: '#EFEFEF', borderRadius: 5 }}>
                 <View style={{ 
@@ -87,7 +87,7 @@ export default function GamificationScreen({ navigation }) {
           }}
         >
           <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor }}>
-            View Challenges
+            Visualizar Desafios
           </Text>
           <Ionicons name="arrow-forward-circle-outline" size={24} color={mainColor} />
         </TouchableOpacity>

@@ -8,22 +8,22 @@ const STORAGE_KEY = '@FazMeRirApp:data';
 const initialChallenges = [
   { 
     id: 'first_expense', 
-    title: 'First Step', 
-    description: 'Register your first expense.', 
+    title: 'Primeiro Passo', 
+    description: 'Registre sua primeira despesa.', 
     points: 10, 
     completed: false 
   },
   { 
     id: 'five_expenses', 
-    title: 'Getting Started', 
-    description: 'Register 5 expenses in total.', 
+    title: 'Melhorando...', 
+    description: 'Registre 5 despesas no total.', 
     points: 50, 
     completed: false 
   },
   { 
     id: 'under_limit_day', 
     title: 'Daily Master', 
-    description: 'End a day below the daily limit.', 
+    description: 'Finalize um dia abaixo do limite diário', 
     points: 100, 
     completed: false 
   },

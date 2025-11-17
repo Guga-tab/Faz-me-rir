@@ -78,22 +78,22 @@ export default function SettingsScreen({ navigation }) {
           onPress={() => navigation.navigate('Goals')}
           >
             <View>
-              <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Change Daily spending limit</Text>
-              <Text style={{ fontSize: 12, color: '#A9A9A9', paddingTop: 4 }}>womes peliceratiey</Text>
+              <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Mudar limite de gasto diário</Text>
+              <Text style={{ fontSize: 12, color: '#A9A9A9', paddingTop: 4 }}>...</Text>
             </View>
             <Ionicons name="cash-outline" size={24} color={mainColor} />
           </TouchableOpacity>
 
           {/* Reset data */}
           <SettingSwitchItem
-            label="Reset data"
+            label="Resetar dados"
             value={isResetEnabled}
             onValueChange={setIsResetEnabled}
           />
           
           {/* Update user name */}
           <SettingSwitchItem
-            label="Update user name"
+            label="Atualizar nome de usuário"
             value={isUpdateUserEnabled}
             onValueChange={setIsUpdateUserEnabled}
           />
@@ -105,7 +105,7 @@ export default function SettingsScreen({ navigation }) {
             alignItems: 'center',
             paddingVertical: 18,
           }}>
-             <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Update notifications on/on Notons</Text>
+             <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Atualizar notificações</Text>
              <Switch
                 trackColor={{ false: '#E9E9E9', true: switchColor }}
                 thumbColor={'#fff'}
@@ -117,13 +117,12 @@ export default function SettingsScreen({ navigation }) {
 
         {/* Informações da Versão */}
         <View style={{ marginBottom: 20, paddingHorizontal: 10 }}>
-          <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>App version: 1.1</Text>
+          <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>App version: 1.1.1</Text>
         </View>
         
         <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
-            <Text style={{ fontSize: 14, color: textColor }}>Credios version</Text>
-            <Text style={{ fontSize: 12, color: '#A9A9A9' }}>Credios: Faz-me Rir</Text>
-            <Text style={{ fontSize: 12, color: '#A9A9A9' }}>repoistory</Text>
+            <Text style={{ fontSize: 14, color: textColor }}>Version Credits</Text>
+            <Text style={{ fontSize: 12, color: '#A9A9A9' }}>Faz-me Rir</Text>
         </View>
 
       </ScrollView>

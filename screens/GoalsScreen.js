@@ -51,14 +51,14 @@ export default function GoalsScreen({ navigation }) {
           color: textColor, 
           marginBottom: 30,
         }}>
-          Goals and Daily Limit
+          Metas e Limite Diário
         </Text>
 
         {/* Seção do Limite Diário */}
         <View style={{ marginBottom: 40 }}>
-          <Text style={{ fontSize: 16, color: textColor, fontWeight: '500', marginBottom: 5 }}>Set daily spending limit</Text>
+          <Text style={{ fontSize: 16, color: textColor, fontWeight: '500', marginBottom: 5 }}>Definir limite de gasto diário</Text>
           <Text style={{ fontSize: 14, color: greenColor, marginBottom: 20, fontWeight: 'bold' }}>
-            Current Limit: {formatCurrency(tempLimit)}
+            Limite atual: {formatCurrency(tempLimit)}
           </Text>
           
           {/* Container do Slider */}
@@ -95,7 +95,7 @@ export default function GoalsScreen({ navigation }) {
         {/* Seção do Progresso (Estático/Simulado) */}
         <View>
           <Text style={{ fontSize: 16, color: textColor, fontWeight: '500', marginBottom: 10 }}>
-            3 of 7 days within goal
+            3 de 7 dias dentro do objetivo
           </Text>
           <View style={{ 
             width: '100%', 
