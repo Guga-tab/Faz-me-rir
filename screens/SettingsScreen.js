@@ -2,21 +2,18 @@ import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Switch, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-// Cores
 const backgroundColor = '#FDFBF6';
 const mainColor = '#F09A5D';
 const textColor = '#333';
 const cardBg = '#fff';
-const switchColor = '#82D4A3'; // Verde (da imagem)
+const switchColor = '#82D4A3';
 const dividerColor = '#F0F0F0';
 
 export default function SettingsScreen({ navigation }) {
-  // Estados para os switches
   const [isResetEnabled, setIsResetEnabled] = useState(true);
   const [isUpdateUserEnabled, setIsUpdateUserEnabled] = useState(false);
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(false);
 
-  // Componente para um item de configuração com switch
   const SettingSwitchItem = ({ label, value, onValueChange }) => (
     <View style={{
       flexDirection: 'row',
@@ -37,8 +34,7 @@ export default function SettingsScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView style={{ padding: 20 }}>
-        
-        {/* Header */}
+
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 5 }}>
             <Ionicons name="arrow-back" size={24} color={textColor} />
@@ -53,7 +49,6 @@ export default function SettingsScreen({ navigation }) {
           </Text>
         </View>
 
-        {/* Card de Configurações */}
         <View style={{
           backgroundColor: cardBg,
           borderRadius: 20,
@@ -66,7 +61,7 @@ export default function SettingsScreen({ navigation }) {
           shadowRadius: 2,
           elevation: 2,
         }}>
-          {/* Change Daily spending limit */}
+
           <TouchableOpacity style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -84,21 +79,18 @@ export default function SettingsScreen({ navigation }) {
             <Ionicons name="cash-outline" size={24} color={mainColor} />
           </TouchableOpacity>
 
-          {/* Reset data */}
           <SettingSwitchItem
             label="Resetar dados"
             value={isResetEnabled}
             onValueChange={setIsResetEnabled}
           />
-          
-          {/* Update user name */}
+
           <SettingSwitchItem
             label="Atualizar nome de usuário"
             value={isUpdateUserEnabled}
             onValueChange={setIsUpdateUserEnabled}
           />
 
-          {/* Update notifications */}
           <View style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -115,7 +107,6 @@ export default function SettingsScreen({ navigation }) {
           </View>
         </View>
 
-        {/* Informações da Versão */}
         <View style={{ marginBottom: 20, paddingHorizontal: 10 }}>
           <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>App version: 1.1.1</Text>
         </View>

@@ -4,9 +4,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { View, TouchableOpacity } from 'react-native';
-import { FinanceProvider } from './context/FinanceContext'; // Importe o Provider
+import { FinanceProvider } from './context/FinanceContext';
 
-// telas
 import WelcomeScreen from './screens/WelcomeScreen';
 import HomeScreen from './screens/HomeScreen';
 import SummaryScreen from './screens/SummaryScreen';
@@ -20,12 +19,9 @@ import EditExpenseScreen from './screens/EditExpenseScreen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// Cor principal (laranja)
 const mainColor = '#F09A5D';
-// Cor de fundo
 const backgroundColor = '#FDFBF6';
 
-// Botão central customizado da TabBar
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
     style={{
@@ -39,7 +35,7 @@ const CustomTabBarButton = ({ children, onPress }) => (
       width: 70,
       height: 70,
       borderRadius: 35,
-      backgroundColor: mainColor, // Laranja
+      backgroundColor: mainColor,
       elevation: 5,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
@@ -51,7 +47,6 @@ const CustomTabBarButton = ({ children, onPress }) => (
   </TouchableOpacity>
 );
 
-// Componente para a Navegação Principal (Tabs)
 function MainTabNavigator() {
   return (
     <Tab.Navigator
@@ -72,8 +67,8 @@ function MainTabNavigator() {
           shadowOpacity: 0.1,
           shadowRadius: 3.84,
         },
-        tabBarInactiveTintColor: '#A9A9A9', // Cinza
-        tabBarActiveTintColor: mainColor, // Laranja
+        tabBarInactiveTintColor: '#A9A9A9',
+        tabBarActiveTintColor: mainColor, 
       }}
     >
       <Tab.Screen 
@@ -86,7 +81,6 @@ function MainTabNavigator() {
         }}
       />
 
-      {/* Tela Home com botão customizado */}
       <Tab.Screen 
         name="HomeTab" 
         component={HomeScreen} 
@@ -111,7 +105,6 @@ function MainTabNavigator() {
   );
 }
 
-// Navegador principal do App (Stack)
 export default function App() {
   return (
     <FinanceProvider>
@@ -125,17 +118,15 @@ export default function App() {
           <Stack.Screen 
             name="Welcome" 
             component={WelcomeScreen} 
-            options={{ headerShown: false }} // Tela de boas-vindas não tem header
+            options={{ headerShown: false }} 
           />
 
-          {/* As telas da TabBar */}
           <Stack.Screen 
             name="Main" 
             component={MainTabNavigator} 
             options={{ headerShown: false }}
           />
-          
-          {/* Telas "Modais" (que abrem por cima) */}
+        
           <Stack.Screen 
             name="AddExpense" 
             component={AddExpenseScreen}
@@ -149,7 +140,7 @@ export default function App() {
             name="Settings" 
             component={SettingsScreen}
             options={{ 
-              headerShown: false // O header customizado está na própria tela
+              headerShown: false
             }}
           />
 
@@ -157,7 +148,7 @@ export default function App() {
             name="Challenges" 
             component={ChallengesScreen}
             options={{ 
-              headerShown: false // O header customizado está na própria tela
+              headerShown: false
             }}
           />
 
@@ -165,14 +156,14 @@ export default function App() {
             name="Goals" 
             component={GoalsScreen}
             options={{ 
-              headerShown: false // O header customizado está na própria tela
+              headerShown: false
             }}
           />
           <Stack.Screen 
             name="EditExpense" 
             component={EditExpenseScreen}
             options={{ 
-                presentation: 'modal', // Abre como modal para edição
+                presentation: 'modal',
                 headerShown: false 
             }}
           />

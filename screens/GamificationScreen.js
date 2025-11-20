@@ -1,22 +1,16 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, ScrollView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-// Importe a lógica de gamificação
 import { useFinance } from '../context/FinanceContext'; 
 
-// Cores
 const backgroundColor = '#FDFBF6';
 const mainColor = '#F09A5D';
 const textColor = '#333';
-const goldColor = '#FFD700'; // Cor para destaque (Level)
+const goldColor = '#FFD700'; 
 
 export default function GamificationScreen({ navigation }) {
-  // 1. Obtém dados de gamificação
   const { points, currentLevel } = useFinance();
-  
-  // Fórmula simples para o progresso do XP
-  // Por exemplo, de 100 para 400 (próximo nível)
-  const requiredForNextLevel = currentLevel * currentLevel * 100; // Ponto necessário para o nível atual
+  const requiredForNextLevel = currentLevel * currentLevel * 100;
   const requiredForCurrentLevel = (currentLevel - 1) * (currentLevel - 1) * 100;
   const currentProgress = points - requiredForCurrentLevel;
   const progressGoal = requiredForNextLevel - requiredForCurrentLevel;
@@ -25,13 +19,10 @@ export default function GamificationScreen({ navigation }) {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView style={{ flex: 1, padding: 20 }}>
-        
-        {/* Header */}
         <Text style={{ fontSize: 24, fontWeight: 'bold', color: textColor, marginBottom: 40 }}>
           Jogatina
         </Text>
 
-        {/* Card Principal: Nível e Pontos */}
         <View style={{
           backgroundColor: mainColor,
           borderRadius: 20,
@@ -43,7 +34,7 @@ export default function GamificationScreen({ navigation }) {
           shadowOpacity: 0.2,
           shadowRadius: 5,
         }}>
-          {/* Nível (Achievements.jpeg) */}
+
           <Text style={{ fontSize: 16, color: '#fff', opacity: 0.8, marginBottom: 5 }}>
             Seu Nível
           </Text>
@@ -55,7 +46,6 @@ export default function GamificationScreen({ navigation }) {
           </Text>
         </View>
 
-        {/* Progresso para o Próximo Nível */}
         <View style={{ marginBottom: 30 }}>
             <Text style={{ fontSize: 14, color: textColor, marginBottom: 5 }}>
                 XP para o próximo nível: {currentProgress} / {progressGoal}
@@ -70,8 +60,6 @@ export default function GamificationScreen({ navigation }) {
             </View>
         </View>
 
-
-        {/* Botão de Desafios (Challanges) */}
         <TouchableOpacity
           onPress={() => navigation.navigate('Challenges')}
           style={{
@@ -91,9 +79,6 @@ export default function GamificationScreen({ navigation }) {
           </Text>
           <Ionicons name="arrow-forward-circle-outline" size={24} color={mainColor} />
         </TouchableOpacity>
-        
-        {/* Adicione outras seções da Achievements.jpeg aqui, como Badges/Trophy List */}
-
       </ScrollView>
     </SafeAreaView>
   );

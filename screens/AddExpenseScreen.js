@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-// 1. Importe o hook para usar o estado global
 import { useFinance } from '../context/FinanceContext'; 
 
-// Lista de Categorias
+const backgroundColor = '#FDFBF6';
+const mainColor = '#F09A5D';
+const textColor = '#333';
+const inputBg = '#fff';
+
 const categories = [
     { name: 'Shopping', icon: 'bag-handle-outline' },
     { name: 'Comida & Bebida', icon: 'fast-food-outline' },
@@ -13,41 +16,29 @@ const categories = [
     { name: 'Casa', icon: 'home-outline' },
 ];
 
-// Cores
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const textColor = '#333';
-const inputBg = '#fff';
-
 export default function AddExpenseScreen({ navigation }) {
-  // Use o hook para acessar a função de adicionar transação
   const { addTransaction } = useFinance(); 
-  
-  // 2. Defina os estados locais para o formulário
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
   
-  // 3. Crie a função que faz a lógica
   const handleSaveExpense = () => {
-      // Tenta converter o valor para número
       const numericAmount = parseFloat(amount.replace(',', '.'));
 
       if (isNaN(numericAmount) || numericAmount <= 0) {
           alert("Por favor, insira um valor válido.");
           return;
       }
-      
-      // Objeto da transação
+
       const newTransaction = {
           amount: numericAmount,
           description: description || 'Sem descrição',
-          type: 'expense', // Assume que é um gasto (você pode adicionar um seletor no futuro)
-          category: selectedCategory, // Valor de exemplo
+          type: 'expense',
+          category: selectedCategory, 
       };
 
-      addTransaction(newTransaction); // SALVA OS DADOS no Contexto/AsyncStorage
-      navigation.goBack();           // FECHA O MODAL
+      addTransaction(newTransaction);
+      navigation.goBack();
   };
 
   return (
@@ -58,12 +49,11 @@ export default function AddExpenseScreen({ navigation }) {
           Adicionar Despesa
         </Text>
 
-        {/* Input Amount */}
         <TextInput
           placeholder="Valor"
           keyboardType="numeric"
           value={amount}
-          onChangeText={setAmount} // Conecta ao estado
+          onChangeText={setAmount} 
           style={{
             backgroundColor: inputBg,
             fontSize: 16,
@@ -75,7 +65,6 @@ export default function AddExpenseScreen({ navigation }) {
           }}
         />
 
-        {/* Input Category (Deixamos estático por enquanto) */}
         <View style={{
             backgroundColor: inputBg,
             padding: 20,
@@ -130,12 +119,11 @@ export default function AddExpenseScreen({ navigation }) {
                 ))}
             </View>
         </View>
-        
-        {/* Input Description */}
+
         <TextInput
           placeholder="Descrição (opcional)"
           value={description}
-          onChangeText={setDescription} // Conecta ao estado
+          onChangeText={setDescription}
           style={{
             backgroundColor: inputBg,
             fontSize: 16,
@@ -147,9 +135,7 @@ export default function AddExpenseScreen({ navigation }) {
           }}
         />
 
-        {/* Botão Save */}
         <TouchableOpacity
-          // AQUI ESTÁ A MUDANÇA: AGORA CHAMA A FUNÇÃO DE SALVAR
           onPress={handleSaveExpense} 
           style={{
             backgroundColor: mainColor,
