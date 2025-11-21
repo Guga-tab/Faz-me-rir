@@ -171,7 +171,7 @@ export const FinanceProvider = ({ children }) => {
     ];
     
     setTransactions(newTransactions);
-    checkChallenges(newTransactions);
+    checkChallenges(newTransactions, goalSuccessDays);
     setPoints(prev => prev + 1); 
   };
   

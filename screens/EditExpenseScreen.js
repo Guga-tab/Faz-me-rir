@@ -51,7 +51,7 @@ export default function EditExpenseScreen({ route, navigation }) {
       ...originalTransaction,
       amount: numericAmount,
       description: description || 'Sem descrição',
-      category: selectedCategory,s
+      category: selectedCategory,
     };
 
     editTransaction(updatedTransaction);

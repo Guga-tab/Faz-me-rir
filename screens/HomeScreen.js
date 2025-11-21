@@ -9,17 +9,18 @@ const textColor = '#333';
 
 const calculateMetrics = (transactions, dailyLimit) => {
     const today = new Date().toISOString().split('T')[0]; 
-    const dailyBalance = dailyLimit - spentToday;
     let spentToday = 0;
     
     transactions.forEach(t => {
-        const transactionDate = t.date.split('T')[0];
-
-        if (transactionDate === today && t.type === 'expense') {
-            spentToday += t.amount;
-        }
+      const transactionDate = t.date.split('T')[0];
+      
+      if (transactionDate === today && t.type === 'expense') {
+        spentToday += t.amount;
+      }
     });
     
+    const dailyBalance = dailyLimit - spentToday;
+
     return {
         spentToday,
         dailyBalance
