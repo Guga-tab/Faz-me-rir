@@ -55,3 +55,5 @@ yarn install
 npm start
 # ou
 npx expo start
+
+# Aponte a Câmera do seu SmartPhone no QR Code 🤳
