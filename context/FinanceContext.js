@@ -192,7 +192,25 @@ export const FinanceProvider = ({ children }) => {
         // Recalcular desafios se a exclusão puder afetar um desafio de contagem (Ex: 5 despesas)
         // Por simplicidade, podemos re-verificar todos os desafios após a exclusão.
         // checkChallenges(transactions.filter(t => t.id !== id)); 
-  };  
+  }; 
+  
+  const resetAllData = async () => {
+    try {
+      await AsyncStorage.removeItem(STORAGE_KEY);
+      
+      setTransactions([]);
+      setDailyLimit(100);
+      setPoints(0);
+      setGoalSuccessDays([]);
+  
+      setChallenges(initialChallenges);
+      
+      console.log("Dados resetados com sucesso pelo Context");
+    } catch (error) {
+      console.log("Erro ao resetar dados:", error);
+      throw error; 
+    }
+  };
 
   return (
     <FinanceContext.Provider
@@ -206,6 +224,7 @@ export const FinanceProvider = ({ children }) => {
         updateDailyLimit,
         editTransaction, 
         deleteTransaction,
+        resetAllData,
       }}
     >
       {children}

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Switch, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Switch, StatusBar, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useFinance } from '../context/FinanceContext'; 
 
 const backgroundColor = '#FDFBF6';
 const mainColor = '#F09A5D';
@@ -10,9 +11,9 @@ const switchColor = '#82D4A3';
 const dividerColor = '#F0F0F0';
 
 export default function SettingsScreen({ navigation }) {
-  const [isResetEnabled, setIsResetEnabled] = useState(true);
-  const [isUpdateUserEnabled, setIsUpdateUserEnabled] = useState(false);
+  const [isResetEnabled, setIsResetEnabled] = useState(false);
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(false);
+  const { resetAllData } = useFinance();
 
   const SettingSwitchItem = ({ label, value, onValueChange }) => (
     <View style={{
@@ -31,6 +32,40 @@ export default function SettingsScreen({ navigation }) {
     </View>
   );
 
+  const handleResetToggle = (value) => {
+    setIsResetEnabled(value);
+    if (!value) return;
+
+    Alert.alert(
+      "Apagar tudo?",
+      "Tem certeza que deseja deletar todos os dados? Essa ação não pode ser desfeita.",
+      [
+        {
+          text: "Cancelar",
+          onPress: () => setIsResetEnabled(false),
+        },
+        {
+          text: "Sim, apagar",
+          onPress: async () => {
+            try {
+              await resetAllData();
+              console.log('Dados apagados com sucesso.');
+
+              // recarregar app
+              navigation.replace('Main'); 
+
+            } catch (e) {
+              console.log("Erro ao limpar dados:", e);
+              Alert.alert("Erro", "Não foi possível limpar os dados.");
+            } finally {
+              setIsResetEnabled(false);
+            }
+          },
+        }
+      ]
+    )
+  }
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView style={{ padding: 20 }}>
@@ -39,11 +74,11 @@ export default function SettingsScreen({ navigation }) {
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 5 }}>
             <Ionicons name="arrow-back" size={24} color={textColor} />
           </TouchableOpacity>
-          <Text style={{ 
-            fontSize: 28, 
-            fontWeight: 'bold', 
-            color: textColor, 
-            marginLeft: 10 
+          <Text style={{
+            fontSize: 28,
+            fontWeight: 'bold',
+            color: textColor,
+            marginLeft: 10
           }}>
             Configurações e Perfil
           </Text>
@@ -70,7 +105,7 @@ export default function SettingsScreen({ navigation }) {
             borderBottomWidth: 1,
             borderBottomColor: dividerColor,
           }}
-          onPress={() => navigation.navigate('Goals')}
+            onPress={() => navigation.navigate('Goals')}
           >
             <View>
               <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Mudar limite de gasto diário</Text>
@@ -82,13 +117,7 @@ export default function SettingsScreen({ navigation }) {
           <SettingSwitchItem
             label="Resetar dados"
             value={isResetEnabled}
-            onValueChange={setIsResetEnabled}
-          />
-
-          <SettingSwitchItem
-            label="Atualizar nome de usuário"
-            value={isUpdateUserEnabled}
-            onValueChange={setIsUpdateUserEnabled}
+            onValueChange={handleResetToggle}
           />
 
           <View style={{
@@ -97,23 +126,23 @@ export default function SettingsScreen({ navigation }) {
             alignItems: 'center',
             paddingVertical: 18,
           }}>
-             <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Atualizar notificações</Text>
-             <Switch
-                trackColor={{ false: '#E9E9E9', true: switchColor }}
-                thumbColor={'#fff'}
-                onValueChange={setIsNotificationsEnabled}
-                value={isNotificationsEnabled}
-              />
+            <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Atualizar notificações</Text>
+            <Switch
+              trackColor={{ false: '#E9E9E9', true: switchColor }}
+              thumbColor={'#fff'}
+              onValueChange={setIsNotificationsEnabled}
+              value={isNotificationsEnabled}
+            />
           </View>
         </View>
 
         <View style={{ marginBottom: 20, paddingHorizontal: 10 }}>
           <Text style={{ fontSize: 16, color: '#A9A9A9', marginBottom: 15 }}>App version: 1.1.1</Text>
         </View>
-        
+
         <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
-            <Text style={{ fontSize: 14, color: textColor }}>Version Credits</Text>
-            <Text style={{ fontSize: 12, color: '#A9A9A9' }}>Faz-me Rir</Text>
+          <Text style={{ fontSize: 14, color: textColor }}>Version Credits</Text>
+          <Text style={{ fontSize: 12, color: '#A9A9A9' }}>Faz-me Rir</Text>
         </View>
 
       </ScrollView>
