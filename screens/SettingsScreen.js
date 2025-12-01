@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Switch, StatusBar, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, Switch, StatusBar, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext'; 
+import Colors from '../style/Colors';
 
 export default function SettingsScreen({ navigation }) {
   const [isResetEnabled, setIsResetEnabled] = useState(false);
@@ -15,9 +17,9 @@ export default function SettingsScreen({ navigation }) {
       alignItems: 'center',
       paddingVertical: 18,
     }}>
-      <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>{label}</Text>
+      <Text style={{ fontSize: 16, color: Colors.textColor, fontWeight: '500' }}>{label}</Text>
       <Switch
-        trackColor={{ false: '#E9E9E9', true: switchColor }}
+        trackColor={{ false: '#E9E9E9', true: Colors.switchColor }}
         thumbColor={'#fff'}
         onValueChange={onValueChange}
         value={value}
@@ -60,17 +62,17 @@ export default function SettingsScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView style={{ padding: 20 }}>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
           <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 5 }}>
-            <Ionicons name="arrow-back" size={24} color={textColor} />
+            <Ionicons name="arrow-back" size={24} color={Colors.textColor} />
           </TouchableOpacity>
           <Text style={{
             fontSize: 28,
             fontWeight: 'bold',
-            color: textColor,
+            color: Colors.textColor,
             marginLeft: 10
           }}>
             Configurações e Perfil
@@ -78,7 +80,7 @@ export default function SettingsScreen({ navigation }) {
         </View>
 
         <View style={{
-          backgroundColor: cardBg,
+          backgroundColor: Colors.cardBg,
           borderRadius: 20,
           paddingHorizontal: 20,
           paddingVertical: 10,
@@ -96,15 +98,15 @@ export default function SettingsScreen({ navigation }) {
             alignItems: 'center',
             paddingVertical: 18,
             borderBottomWidth: 1,
-            borderBottomColor: dividerColor,
+            borderBottomColor: Colors.dividerColor,
           }}
             onPress={() => navigation.navigate('Goals')}
           >
             <View>
-              <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Mudar limite de gasto diário</Text>
+              <Text style={{ fontSize: 16, color: Colors.textColor, fontWeight: '500' }}>Mudar limite de gasto diário</Text>
               <Text style={{ fontSize: 12, color: '#A9A9A9', paddingTop: 4 }}>...</Text>
             </View>
-            <Ionicons name="cash-outline" size={24} color={mainColor} />
+            <Ionicons name="cash-outline" size={24} color={Colors.mainColor} />
           </TouchableOpacity>
 
           <SettingSwitchItem
@@ -119,9 +121,9 @@ export default function SettingsScreen({ navigation }) {
             alignItems: 'center',
             paddingVertical: 18,
           }}>
-            <Text style={{ fontSize: 16, color: textColor, fontWeight: '500' }}>Atualizar notificações</Text>
+            <Text style={{ fontSize: 16, color: Colors.textColor, fontWeight: '500' }}>Atualizar notificações</Text>
             <Switch
-              trackColor={{ false: '#E9E9E9', true: switchColor }}
+              trackColor={{ false: '#E9E9E9', true: Colors.switchColor }}
               thumbColor={'#fff'}
               onValueChange={setIsNotificationsEnabled}
               value={isNotificationsEnabled}
@@ -134,7 +136,7 @@ export default function SettingsScreen({ navigation }) {
         </View>
 
         <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
-          <Text style={{ fontSize: 14, color: textColor }}>Version Credits</Text>
+          <Text style={{ fontSize: 14, color: Colors.textColor }}>Version Credits</Text>
           <Text style={{ fontSize: 12, color: '#A9A9A9' }}>Faz-me Rir</Text>
         </View>
 

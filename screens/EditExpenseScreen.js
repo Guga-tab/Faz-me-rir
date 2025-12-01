@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar, ScrollView, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StatusBar, ScrollView, Alert } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext';
+import Colors from '../style/Colors';
 
 const categories = [
   { name: 'Shopping', icon: 'bag-handle-outline' },
@@ -12,11 +14,11 @@ const categories = [
 ];
 
 const inputStyle = {
-  backgroundColor: inputBg,
+  backgroundColor: Colors.inputBg,
   borderRadius: 15,
   padding: 18,
   fontSize: 16, 
-  color: textColor,
+  color: Colors.textColor,
   marginBottom: 20,
   shadowColor: '#000',
   shadowOffset: { width: 0, height: 1 },
@@ -79,9 +81,9 @@ export default function EditExpenseScreen({ route, navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView contentContainerStyle={{ padding: 20 }}>
-        <Text style={{ fontSize: 28, fontWeight: 'bold', color: textColor, textAlign: 'center', marginVertical: 20 }}>
+        <Text style={{ fontSize: 28, fontWeight: 'bold', color: Colors.textColor, textAlign: 'center', marginVertical: 20 }}>
           Editar Despesa
         </Text>
 
@@ -93,7 +95,7 @@ export default function EditExpenseScreen({ route, navigation }) {
           style={inputStyle}
         />
 
-        <Text style={{ fontSize: 16, fontWeight: '500', color: textColor, marginBottom: 10 }}>
+        <Text style={{ fontSize: 16, fontWeight: '500', color: Colors.textColor, marginBottom: 10 }}>
           Categoria:
         </Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginBottom: 30, justifyContent: 'space-between' }}>
@@ -109,12 +111,12 @@ export default function EditExpenseScreen({ route, navigation }) {
                 marginBottom: 10,
                 minWidth: '48%',
                 justifyContent: 'center',
-                backgroundColor: selectedCategory === cat.name ? '#FFEFD8' : inputBg,
+                backgroundColor: selectedCategory === cat.name ? '#FFEFD8' : Colors.inputBg,
                 borderWidth: 1,
-                borderColor: selectedCategory === cat.name ? mainColor : '#E0E0E0',
+                borderColor: selectedCategory === cat.name ? Colors.mainColor : '#E0E0E0',
               }}                >
-              <Ionicons name={cat.icon} size={18} color={selectedCategory === cat.name ? '#fff' : textColor} style={{ marginRight: 5 }} />
-              <Text style={{ color: selectedCategory === cat.name ? '#fff' : textColor, fontWeight: '500' }}>
+              <Ionicons name={cat.icon} size={18} color={selectedCategory === cat.name ? '#fff' : Colors.textColor} style={{ marginRight: 5 }} />
+              <Text style={{ color: selectedCategory === cat.name ? '#fff' : Colors.textColor, fontWeight: '500' }}>
                 {cat.name}
               </Text>
             </TouchableOpacity>
@@ -131,7 +133,7 @@ export default function EditExpenseScreen({ route, navigation }) {
         <TouchableOpacity
           onPress={handleSaveEdit}
           style={{
-            backgroundColor: mainColor,
+            backgroundColor: Colors.mainColor,
             paddingVertical: 18,
             borderRadius: 30,
             alignItems: 'center',
@@ -146,7 +148,7 @@ export default function EditExpenseScreen({ route, navigation }) {
         <TouchableOpacity
           onPress={handleDelete}
           style={{
-            backgroundColor: redColor,
+            backgroundColor: Colors.redColor,
             paddingVertical: 18,
             borderRadius: 30,
             alignItems: 'center',

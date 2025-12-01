@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext';
+import Colors from '../style/Colors';
 
 const ChallengeItem = ({ challenge }) => {
     const iconName = challenge.completed ? "checkmark-circle" : "ellipse-outline";
-    const iconColor = challenge.completed ? completedColor : mainColor;
-    const titleColor = challenge.completed ? completedColor : textColor;
+    const iconColor = challenge.completed ? Colors.completedColor : Colors.mainColor;
+    const titleColor = challenge.completed ? Colors.completedColor : Colors.textColor;
 
     return (
         <View style={{
@@ -47,19 +49,19 @@ export default function ChallengesScreen({ navigation }) {
     const { challenges } = useFinance();
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
             <ScrollView style={{ flex: 1, padding: 20 }}>
                 <TouchableOpacity
                     onPress={() => navigation.goBack()}
                     style={{ padding: 5, marginBottom: 10, alignSelf: 'flex-start' }}
                 >
-                    <Ionicons name="arrow-back" size={24} color={textColor} />
+                    <Ionicons name="arrow-back" size={24} color={Colors.textColor} />
                 </TouchableOpacity>
 
                 <Text style={{
                     fontSize: 28,
                     fontWeight: 'bold',
-                    color: textColor,
+                    color: Colors.textColor,
                     marginBottom: 30,
                 }}>
                     Desafios

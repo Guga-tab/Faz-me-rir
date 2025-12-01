@@ -15,12 +15,10 @@ import GoalsScreen from './screens/GoalsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ChallengesScreen from './screens/ChallengesScreen.js';
 import EditExpenseScreen from './screens/EditExpenseScreen';
+import Colors from './style/Colors.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-const mainColor = '#F09A5D';
-const backgroundColor = '#FDFBF6';
 
 const CustomTabBarButton = ({ children, onPress }) => (
   <TouchableOpacity
@@ -35,7 +33,7 @@ const CustomTabBarButton = ({ children, onPress }) => (
       width: 70,
       height: 70,
       borderRadius: 35,
-      backgroundColor: mainColor,
+      backgroundColor: Colors.mainColor,
       elevation: 5,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
@@ -68,7 +66,7 @@ function MainTabNavigator() {
           shadowRadius: 3.84,
         },
         tabBarInactiveTintColor: '#A9A9A9',
-        tabBarActiveTintColor: mainColor, 
+        tabBarActiveTintColor: Colors.mainColor, 
       }}
     >
       <Tab.Screen 
@@ -111,7 +109,7 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            cardStyle: { backgroundColor: backgroundColor },
+            cardStyle: { backgroundColor: Colors.backgroundColor },
           }}
         >
 

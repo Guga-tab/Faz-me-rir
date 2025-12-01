@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext'; 
+import Colors from '../style/Colors';
 
 const categories = [
     { name: 'Shopping', icon: 'bag-handle-outline' },
@@ -37,10 +39,10 @@ export default function AddExpenseScreen({ navigation }) {
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <View style={{ flex: 1, padding: 20 }}>
 
-        <Text style={{ fontSize: 28, fontWeight: 'bold', color: textColor, textAlign: 'center', marginVertical: 30 }}>
+        <Text style={{ fontSize: 28, fontWeight: 'bold', color: Colors.textColor, textAlign: 'center', marginVertical: 30 }}>
           Adicionar Despesa
         </Text>
 
@@ -50,7 +52,7 @@ export default function AddExpenseScreen({ navigation }) {
           value={amount}
           onChangeText={setAmount} 
           style={{
-            backgroundColor: inputBg,
+            backgroundColor: Colors.inputBg,
             fontSize: 16,
             padding: 20,
             borderRadius: 15,
@@ -61,7 +63,7 @@ export default function AddExpenseScreen({ navigation }) {
         />
 
         <View style={{
-            backgroundColor: inputBg,
+            backgroundColor: Colors.inputBg,
             padding: 20,
             borderRadius: 15,
             marginBottom: 20,
@@ -71,7 +73,7 @@ export default function AddExpenseScreen({ navigation }) {
             justifyContent: 'space-between',
             alignItems: 'center'
         }}>
-          <Text style={{ fontSize: 16, fontWeight: '500', color: textColor, marginBottom: 10 }}>
+          <Text style={{ fontSize: 16, fontWeight: '500', color: Colors.textColor, marginBottom: 10 }}>
             Selecionar Categoria:
           </Text>
             <View style={{ 
@@ -85,12 +87,12 @@ export default function AddExpenseScreen({ navigation }) {
                         key={cat.name}
                         onPress={() => setSelectedCategory(cat.name)}
                         style={{
-                            backgroundColor: selectedCategory === cat.name ? mainColor : '#fff',
+                            backgroundColor: selectedCategory === cat.name ? Colors.mainColor : '#fff',
                             padding: 12,
                             borderRadius: 10,
                             marginBottom: 10,
                             borderWidth: 1,
-                            borderColor: selectedCategory === cat.name ? mainColor : '#EFEFEF',
+                            borderColor: selectedCategory === cat.name ? Colors.mainColor : '#EFEFEF',
                             flexDirection: 'row',
                             alignItems: 'center',
                             minWidth: 100,
@@ -101,11 +103,11 @@ export default function AddExpenseScreen({ navigation }) {
                         <Ionicons 
                             name={cat.icon} 
                             size={18} 
-                            color={selectedCategory === cat.name ? '#fff' : textColor} 
+                            color={selectedCategory === cat.name ? '#fff' : Colors.textColor} 
                             style={{ marginRight: 5 }} 
                         />
                         <Text style={{ 
-                            color: selectedCategory === cat.name ? '#fff' : textColor, 
+                            color: selectedCategory === cat.name ? '#fff' : Colors.textColor, 
                             fontWeight: '500' 
                         }}>
                             {cat.name}
@@ -120,7 +122,7 @@ export default function AddExpenseScreen({ navigation }) {
           value={description}
           onChangeText={setDescription}
           style={{
-            backgroundColor: inputBg,
+            backgroundColor: Colors.inputBg,
             fontSize: 16,
             padding: 20,
             borderRadius: 15,
@@ -133,7 +135,7 @@ export default function AddExpenseScreen({ navigation }) {
         <TouchableOpacity
           onPress={handleSaveExpense} 
           style={{
-            backgroundColor: mainColor,
+            backgroundColor: Colors.mainColor,
             paddingVertical: 18,
             borderRadius: 30,
             alignItems: 'center',

@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, StatusBar } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext';
+import Colors from '../style/Colors';
 
 const formatCurrency = (value) =>
     `R$${value.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}`;
@@ -9,7 +11,7 @@ const formatCurrency = (value) =>
 const TransactionItem = ({ item, navigation }) => {
     const date = new Date(item.date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' });
     const isExpense = item.type === 'expense';
-    const amountColor = isExpense ? redColor : mainColor;
+    const amountColor = isExpense ? Colors.redColor : Colors.mainColor;
     const sign = isExpense ? '-' : '+';
     const iconName = item.category === 'Transporte' ? 'car-outline' : 'basket-outline';
 
@@ -35,15 +37,15 @@ const TransactionItem = ({ item, navigation }) => {
                     width: 40,
                     height: 40,
                     borderRadius: 10,
-                    backgroundColor: mainColor + '30',
+                    backgroundColor: Colors.mainColor + '30',
                     justifyContent: 'center',
                     alignItems: 'center',
                     marginRight: 10
                 }}>
-                    <Ionicons name={iconName} size={20} color={mainColor} />
+                    <Ionicons name={iconName} size={20} color={Colors.mainColor} />
                 </View>
                 <View>
-                    <Text style={{ fontSize: 16, fontWeight: '500', color: textColor }}>
+                    <Text style={{ fontSize: 16, fontWeight: '500', color: Colors.textColor }}>
                         {item.description}
                     </Text>
                     <Text style={{ fontSize: 12, color: '#A9A9A9', paddingTop: 2 }}>
@@ -67,20 +69,20 @@ export default function SummaryScreen({ navigation }) {
     }, [transactions]);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
             <ScrollView
                 style={{ flex: 1 }}
                 contentContainerStyle={{ paddingHorizontal: 20, paddingBottom: 20 }}
                 showsVerticalScrollIndicator={false}
             >
                 <View style={{ paddingTop: 10, marginBottom: 20 }}>
-                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: textColor }}>
+                    <Text style={{ fontSize: 24, fontWeight: 'bold', color: Colors.textColor }}>
                         Sumário
                     </Text>
                 </View>
 
                 <View style={{
-                    backgroundColor: mainColor,
+                    backgroundColor: Colors.mainColor,
                     borderRadius: 20,
                     padding: 30,
                     marginBottom: 30,
@@ -94,7 +96,7 @@ export default function SummaryScreen({ navigation }) {
                     </Text>
                 </View>
 
-                <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor, marginBottom: 15 }}>
+                <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.textColor, marginBottom: 15 }}>
                     Despesas Recentes
                 </Text>
 

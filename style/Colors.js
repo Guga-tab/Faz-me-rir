@@ -8,6 +8,9 @@ export default StyleSheet.create({
     completedColor: '#82D4A3',
     redColor: '#E74C3C',
     goldColor: '#FFD700',
+    greenColor: '#82D4A3',
     lightGray: '#EFEFEF',
-    dividerColor: '#F0F0F0'
+    switchColor: '#82D4A3',
+    dividerColor: '#F0F0F0',
+    cardBg: '#fff'
 })

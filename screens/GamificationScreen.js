@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, StatusBar, ScrollView } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext'; 
+import Colors from '../style/Colors';
 
 export default function GamificationScreen({ navigation }) {
   const { points, currentLevel } = useFinance();
@@ -12,14 +14,14 @@ export default function GamificationScreen({ navigation }) {
   const progressRatio = currentProgress / progressGoal;
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
       <ScrollView style={{ flex: 1, padding: 20 }}>
-        <Text style={{ fontSize: 24, fontWeight: 'bold', color: textColor, marginBottom: 40 }}>
+        <Text style={{ fontSize: 24, fontWeight: 'bold', color: Colors.textColor, marginBottom: 40 }}>
           Jogatina
         </Text>
 
         <View style={{
-          backgroundColor: mainColor,
+          backgroundColor: Colors.mainColor,
           borderRadius: 20,
           padding: 30,
           marginBottom: 30,
@@ -33,7 +35,7 @@ export default function GamificationScreen({ navigation }) {
           <Text style={{ fontSize: 16, color: '#fff', opacity: 0.8, marginBottom: 5 }}>
             Seu Nível
           </Text>
-          <Text style={{ fontSize: 48, fontWeight: 'bold', color: goldColor, marginBottom: 20 }}>
+          <Text style={{ fontSize: 48, fontWeight: 'bold', color: Colors.goldColor, marginBottom: 20 }}>
             {currentLevel}
           </Text>
           <Text style={{ fontSize: 18, fontWeight: '500', color: '#fff' }}>
@@ -42,14 +44,14 @@ export default function GamificationScreen({ navigation }) {
         </View>
 
         <View style={{ marginBottom: 30 }}>
-            <Text style={{ fontSize: 14, color: textColor, marginBottom: 5 }}>
+            <Text style={{ fontSize: 14, color: Colors.textColor, marginBottom: 5 }}>
                 XP para o próximo nível: {currentProgress} / {progressGoal}
             </Text>
             <View style={{ height: 10, backgroundColor: '#EFEFEF', borderRadius: 5 }}>
                 <View style={{ 
                     width: `${progressRatio * 100}%`, 
                     height: 10, 
-                    backgroundColor: mainColor, 
+                    backgroundColor: Colors.mainColor, 
                     borderRadius: 5 
                 }} />
             </View>
@@ -69,10 +71,10 @@ export default function GamificationScreen({ navigation }) {
             borderColor: '#EFEFEF',
           }}
         >
-          <Text style={{ fontSize: 18, fontWeight: 'bold', color: textColor }}>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', color: Colors.textColor }}>
             Visualizar Desafios
           </Text>
-          <Ionicons name="arrow-forward-circle-outline" size={24} color={mainColor} />
+          <Ionicons name="arrow-forward-circle-outline" size={24} color={Colors.mainColor} />
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
