@@ -3,13 +3,6 @@ import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, Switch, StatusB
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext'; 
 
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const textColor = '#333';
-const cardBg = '#fff';
-const switchColor = '#82D4A3';
-const dividerColor = '#F0F0F0';
-
 export default function SettingsScreen({ navigation }) {
   const [isResetEnabled, setIsResetEnabled] = useState(false);
   const [isNotificationsEnabled, setIsNotificationsEnabled] = useState(false);

@@ -2,10 +2,7 @@ import React, { useMemo } from 'react';
 import { View, Text, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext'; 
-
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const textColor = '#333';
+import CustomButton from '../components/CustomButton';
 
 const calculateMetrics = (transactions, dailyLimit) => {
     const today = new Date().toISOString().split('T')[0]; 
@@ -66,24 +63,10 @@ export default function HomeScreen({ navigation }) {
           </Text>
         </View>
 
-        <TouchableOpacity
-          onPress={() => navigation.navigate('AddExpense')}
-          style={{
-            backgroundColor: mainColor,
-            paddingVertical: 18,
-            paddingHorizontal: 80,
-            borderRadius: 30,
-            elevation: 3,
-            shadowColor: '#000',
-            shadowOffset: { width: 0, height: 2 },
-            shadowOpacity: 0.2,
-            shadowRadius: 3,
-          }}
-        >
-          <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Adicionar Despesa
-          </Text>
-        </TouchableOpacity>
+        <CustomButton
+          title = "Adicionar despesa"
+          navigate="AddExpense"
+        />
 
       </View>
     </SafeAreaView>

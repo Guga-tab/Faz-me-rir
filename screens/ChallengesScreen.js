@@ -3,11 +3,6 @@ import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar } fro
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext';
 
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const textColor = '#333';
-const completedColor = '#82D4A3';
-
 const ChallengeItem = ({ challenge }) => {
     const iconName = challenge.completed ? "checkmark-circle" : "ellipse-outline";
     const iconColor = challenge.completed ? completedColor : mainColor;

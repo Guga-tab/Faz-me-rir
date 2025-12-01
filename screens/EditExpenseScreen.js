@@ -11,12 +11,6 @@ const categories = [
   { name: 'Casa', icon: 'home-outline' },
 ];
 
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const inputBg = '#fff';
-const textColor = '#333';
-const redColor = '#E74C3C';
-
 const inputStyle = {
   backgroundColor: inputBg,
   borderRadius: 15,

@@ -3,11 +3,6 @@ import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext'; 
 
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const textColor = '#333';
-const inputBg = '#fff';
-
 const categories = [
     { name: 'Shopping', icon: 'bag-handle-outline' },
     { name: 'Comida & Bebida', icon: 'fast-food-outline' },

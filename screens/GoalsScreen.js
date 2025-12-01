@@ -4,12 +4,6 @@ import { Ionicons } from '@expo/vector-icons';
 import Slider from '@react-native-community/slider'; 
 import { useFinance } from '../context/FinanceContext'; 
 
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const greenColor = '#82D4A3';
-const textColor = '#333';
-const lightGray = '#EFEFEF';
-
 export default function GoalsScreen({ navigation }) {
   const { dailyLimit, updateDailyLimit } = useFinance();
   const [tempLimit, setTempLimit] = useState(dailyLimit); 

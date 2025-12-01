@@ -3,11 +3,6 @@ import { View, Text, TouchableOpacity, SafeAreaView, ScrollView, StatusBar } fro
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext';
 
-const backgroundColor = '#FDFBF6';
-const textColor = '#333';
-const mainColor = '#F09A5D';
-const redColor = '#E74C3C';
-
 const formatCurrency = (value) =>
     `R$${value.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')}`;
 

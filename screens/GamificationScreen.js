@@ -3,11 +3,6 @@ import { View, Text, TouchableOpacity, SafeAreaView, StatusBar, ScrollView } fro
 import { Ionicons } from '@expo/vector-icons';
 import { useFinance } from '../context/FinanceContext'; 
 
-const backgroundColor = '#FDFBF6';
-const mainColor = '#F09A5D';
-const textColor = '#333';
-const goldColor = '#FFD700'; 
-
 export default function GamificationScreen({ navigation }) {
   const { points, currentLevel } = useFinance();
   const requiredForNextLevel = currentLevel * currentLevel * 100;
