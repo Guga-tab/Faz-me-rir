@@ -15,7 +15,7 @@ import GoalsScreen from './screens/GoalsScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ChallengesScreen from './screens/ChallengesScreen.js';
 import EditExpenseScreen from './screens/EditExpenseScreen';
-import Colors from './style/Colors.js';
+import Global from './style/Global.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -33,7 +33,7 @@ const CustomTabBarButton = ({ children, onPress }) => (
       width: 70,
       height: 70,
       borderRadius: 35,
-      backgroundColor: Colors.mainColor,
+      backgroundColor: Global.colors.mainColor,
       elevation: 5,
       shadowColor: '#000',
       shadowOffset: { width: 0, height: 2 },
@@ -66,12 +66,12 @@ function MainTabNavigator() {
           shadowRadius: 3.84,
         },
         tabBarInactiveTintColor: '#A9A9A9',
-        tabBarActiveTintColor: Colors.mainColor, 
+        tabBarActiveTintColor: Global.colors.mainColor,
       }}
     >
-      <Tab.Screen 
-        name="Summary" 
-        component={SummaryScreen} 
+      <Tab.Screen
+        name="Summary"
+        component={SummaryScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="document-text-outline" color={color} size={size} />
@@ -79,19 +79,19 @@ function MainTabNavigator() {
         }}
       />
 
-      <Tab.Screen 
-        name="HomeTab" 
-        component={HomeScreen} 
+      <Tab.Screen
+        name="HomeTab"
+        component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="home" color={color} size={size} />
           ),
         }}
       />
-      
-      <Tab.Screen 
-        name="Gamification" 
-        component={GamificationScreen} 
+
+      <Tab.Screen
+        name="Gamification"
+        component={GamificationScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="game-controller-outline" color={color} size={size} />
@@ -109,60 +109,60 @@ export default function App() {
       <NavigationContainer>
         <Stack.Navigator
           screenOptions={{
-            cardStyle: { backgroundColor: Colors.backgroundColor },
+            cardStyle: { backgroundColor: Global.colors.backgroundColor },
           }}
         >
 
-          <Stack.Screen 
-            name="Welcome" 
-            component={WelcomeScreen} 
-            options={{ headerShown: false }} 
-          />
-
-          <Stack.Screen 
-            name="Main" 
-            component={MainTabNavigator} 
+          <Stack.Screen
+            name="Welcome"
+            component={WelcomeScreen}
             options={{ headerShown: false }}
           />
-        
-          <Stack.Screen 
-            name="AddExpense" 
+
+          <Stack.Screen
+            name="Main"
+            component={MainTabNavigator}
+            options={{ headerShown: false }}
+          />
+
+          <Stack.Screen
+            name="AddExpense"
             component={AddExpenseScreen}
-            options={{ 
-              presentation: 'modal', 
-              headerShown: false 
+            options={{
+              presentation: 'modal',
+              headerShown: false
             }}
           />
 
-          <Stack.Screen 
-            name="Settings" 
+          <Stack.Screen
+            name="Settings"
             component={SettingsScreen}
-            options={{ 
+            options={{
               headerShown: false
             }}
           />
 
-          <Stack.Screen 
-            name="Challenges" 
+          <Stack.Screen
+            name="Challenges"
             component={ChallengesScreen}
-            options={{ 
+            options={{
               headerShown: false
             }}
           />
 
-          <Stack.Screen 
-            name="Goals" 
+          <Stack.Screen
+            name="Goals"
             component={GoalsScreen}
-            options={{ 
+            options={{
               headerShown: false
             }}
           />
-          <Stack.Screen 
-            name="EditExpense" 
+          <Stack.Screen
+            name="EditExpense"
             component={EditExpenseScreen}
-            options={{ 
-                presentation: 'modal',
-                headerShown: false 
+            options={{
+              presentation: 'modal',
+              headerShown: false
             }}
           />
 

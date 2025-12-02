@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, ScrollView, Switch, StatusBar, Alert } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TouchableOpacity, ScrollView, Switch, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useFinance } from '../context/FinanceContext'; 
-import Colors from '../style/Colors';
+import { useFinance } from '../context/FinanceContext';
+import Global from '../style/Global';
+import ArrowBack from '../components/ArrowBack';
 
 export default function SettingsScreen({ navigation }) {
   const [isResetEnabled, setIsResetEnabled] = useState(false);
@@ -17,9 +18,9 @@ export default function SettingsScreen({ navigation }) {
       alignItems: 'center',
       paddingVertical: 18,
     }}>
-      <Text style={{ fontSize: 16, color: Colors.textColor, fontWeight: '500' }}>{label}</Text>
+      <Text style={{ fontSize: 16, color: Global.colors.textColor, fontWeight: '500' }}>{label}</Text>
       <Switch
-        trackColor={{ false: '#E9E9E9', true: Colors.switchColor }}
+        trackColor={{ false: '#E9E9E9', true: Global.colors.switchColor }}
         thumbColor={'#fff'}
         onValueChange={onValueChange}
         value={value}
@@ -47,7 +48,7 @@ export default function SettingsScreen({ navigation }) {
               console.log('Dados apagados com sucesso.');
 
               // recarregar app
-              navigation.replace('Main'); 
+              navigation.replace('Main');
 
             } catch (e) {
               console.log("Erro ao limpar dados:", e);
@@ -62,17 +63,17 @@ export default function SettingsScreen({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+    <SafeAreaView style={[Global.safeAreaView, Global.colors.backgroundColor]}>
       <ScrollView style={{ padding: 20 }}>
 
         <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
-          <TouchableOpacity onPress={() => navigation.goBack()} style={{ padding: 5 }}>
-            <Ionicons name="arrow-back" size={24} color={Colors.textColor} />
-          </TouchableOpacity>
+          <ArrowBack
+            style={{padding: 5}}
+          />
           <Text style={{
             fontSize: 28,
             fontWeight: 'bold',
-            color: Colors.textColor,
+            color: Global.colors.textColor,
             marginLeft: 10
           }}>
             Configurações e Perfil
@@ -80,7 +81,7 @@ export default function SettingsScreen({ navigation }) {
         </View>
 
         <View style={{
-          backgroundColor: Colors.cardBg,
+          backgroundColor: Global.colors.cardBg,
           borderRadius: 20,
           paddingHorizontal: 20,
           paddingVertical: 10,
@@ -91,22 +92,21 @@ export default function SettingsScreen({ navigation }) {
           shadowRadius: 2,
           elevation: 2,
         }}>
-
+          
           <TouchableOpacity style={{
             flexDirection: 'row',
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingVertical: 18,
             borderBottomWidth: 1,
-            borderBottomColor: Colors.dividerColor,
+            borderBottomColor: Global.colors.dividerColor,
           }}
             onPress={() => navigation.navigate('Goals')}
           >
             <View>
-              <Text style={{ fontSize: 16, color: Colors.textColor, fontWeight: '500' }}>Mudar limite de gasto diário</Text>
-              <Text style={{ fontSize: 12, color: '#A9A9A9', paddingTop: 4 }}>...</Text>
+              <Text style={{ fontSize: 16, color: Global.colors.textColor, fontWeight: '500' }}>Mudar limite de gasto diário</Text>
             </View>
-            <Ionicons name="cash-outline" size={24} color={Colors.mainColor} />
+            <Ionicons name="cash-outline" size={24} color={Global.colors.mainColor} />
           </TouchableOpacity>
 
           <SettingSwitchItem
@@ -121,9 +121,9 @@ export default function SettingsScreen({ navigation }) {
             alignItems: 'center',
             paddingVertical: 18,
           }}>
-            <Text style={{ fontSize: 16, color: Colors.textColor, fontWeight: '500' }}>Atualizar notificações</Text>
+            <Text style={{ fontSize: 16, color: Global.colors.textColor, fontWeight: '500' }}>Atualizar notificações</Text>
             <Switch
-              trackColor={{ false: '#E9E9E9', true: Colors.switchColor }}
+              trackColor={{ false: '#E9E9E9', true: Global.colors.switchColor }}
               thumbColor={'#fff'}
               onValueChange={setIsNotificationsEnabled}
               value={isNotificationsEnabled}
@@ -136,7 +136,7 @@ export default function SettingsScreen({ navigation }) {
         </View>
 
         <View style={{ paddingHorizontal: 10, marginTop: 10 }}>
-          <Text style={{ fontSize: 14, color: Colors.textColor }}>Version Credits</Text>
+          <Text style={{ fontSize: 14, color: Global.colors.textColor }}>Version Credits</Text>
           <Text style={{ fontSize: 12, color: '#A9A9A9' }}>Faz-me Rir</Text>
         </View>
 

@@ -1,22 +1,22 @@
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Colors from '../style/Colors';
+import Global from '../style/Global';
 
-export default function CustomButton({title, navigate}){
+export default function CustomButton({ title, navigate, style}) {
     const navigation = useNavigation();
 
-    return(
-        <TouchableOpacity onPress={() => navigation.navigate(navigate)} style={styles.button}>
-            <Text style={styles.buttonText}>
+    return (
+        <TouchableOpacity onPress={() => navigation.navigate(navigate)} style={[thisStyles.button, style]}>
+            <Text style={thisStyles.buttonText}>
                 {title}
             </Text>
         </TouchableOpacity>
     )
 }
 
-const styles = StyleSheet.create({
-    button:{
-        backgroundColor: Colors.mainColor,
+const thisStyles = StyleSheet.create({
+    button: {
+        backgroundColor: Global.colors.mainColor,
         paddingVertical: 18,
         paddingHorizontal: 80,
         borderRadius: 30,

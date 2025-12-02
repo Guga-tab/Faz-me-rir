@@ -1,48 +1,41 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StatusBar } from 'react-native';
+import { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import { useFinance } from '../context/FinanceContext'; 
-import Colors from '../style/Colors';
-
-const categories = [
-    { name: 'Shopping', icon: 'bag-handle-outline' },
-    { name: 'Comida & Bebida', icon: 'fast-food-outline' },
-    { name: 'Transporte', icon: 'car-outline' },
-    { name: 'Lazer', icon: 'leaf-outline' },
-    { name: 'Casa', icon: 'home-outline' },
-];
+import { useFinance } from '../context/FinanceContext';
+import { categories } from '../icons/categories';
+import Global from '../style/Global';
 
 export default function AddExpenseScreen({ navigation }) {
-  const { addTransaction } = useFinance(); 
+  const { addTransaction } = useFinance();
   const [amount, setAmount] = useState('');
   const [description, setDescription] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(categories[0].name);
-  
+
   const handleSaveExpense = () => {
-      const numericAmount = parseFloat(amount.replace(',', '.'));
+    const numericAmount = parseFloat(amount.replace(',', '.'));
 
-      if (isNaN(numericAmount) || numericAmount <= 0) {
-          alert("Por favor, insira um valor válido.");
-          return;
-      }
+    if (isNaN(numericAmount) || numericAmount <= 0) {
+      alert("Por favor, insira um valor válido.");
+      return;
+    }
 
-      const newTransaction = {
-          amount: numericAmount,
-          description: description || 'Sem descrição',
-          type: 'expense',
-          category: selectedCategory, 
-      };
+    const newTransaction = {
+      amount: numericAmount,
+      description: description || 'Sem descrição',
+      type: 'expense',
+      category: selectedCategory,
+    };
 
-      addTransaction(newTransaction);
-      navigation.goBack();
+    addTransaction(newTransaction);
+    navigation.goBack();
   };
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.backgroundColor, paddingTop: StatusBar.currentHeight || 0 }}>
+    <SafeAreaView style={[Global.safeAreaView, Global.colors.backgroundColor]}>
       <View style={{ flex: 1, padding: 20 }}>
 
-        <Text style={{ fontSize: 28, fontWeight: 'bold', color: Colors.textColor, textAlign: 'center', marginVertical: 30 }}>
+        <Text style={{ fontSize: 28, fontWeight: 'bold', color: Global.colors.textColor, textAlign: 'center', marginVertical: 30 }}>
           Adicionar Despesa
         </Text>
 
@@ -50,9 +43,9 @@ export default function AddExpenseScreen({ navigation }) {
           placeholder="Valor"
           keyboardType="numeric"
           value={amount}
-          onChangeText={setAmount} 
+          onChangeText={setAmount}
           style={{
-            backgroundColor: Colors.inputBg,
+            backgroundColor: Global.colors.inputBg,
             fontSize: 16,
             padding: 20,
             borderRadius: 15,
@@ -63,58 +56,58 @@ export default function AddExpenseScreen({ navigation }) {
         />
 
         <View style={{
-            backgroundColor: Colors.inputBg,
-            padding: 20,
-            borderRadius: 15,
-            marginBottom: 20,
-            borderColor: '#EFEFEF',
-            borderWidth: 1,
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'center'
+          backgroundColor: Global.colors.inputBg,
+          padding: 20,
+          borderRadius: 15,
+          marginBottom: 20,
+          borderColor: '#EFEFEF',
+          borderWidth: 1,
+          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center'
         }}>
-          <Text style={{ fontSize: 16, fontWeight: '500', color: Colors.textColor, marginBottom: 10 }}>
+          <Text style={{ fontSize: 16, fontWeight: '500', color: Global.colors.textColor, marginBottom: 10 }}>
             Selecionar Categoria:
           </Text>
-            <View style={{ 
-                flexDirection: 'row', 
-                flexWrap: 'wrap', 
-                marginBottom: 30,
-                justifyContent: 'space-between'
-            }}>
-                {categories.map((cat) => (
-                    <TouchableOpacity
-                        key={cat.name}
-                        onPress={() => setSelectedCategory(cat.name)}
-                        style={{
-                            backgroundColor: selectedCategory === cat.name ? Colors.mainColor : '#fff',
-                            padding: 12,
-                            borderRadius: 10,
-                            marginBottom: 10,
-                            borderWidth: 1,
-                            borderColor: selectedCategory === cat.name ? Colors.mainColor : '#EFEFEF',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            minWidth: 100,
-                            justifyContent: 'center',
-                            
-                        }}
-                    >
-                        <Ionicons 
-                            name={cat.icon} 
-                            size={18} 
-                            color={selectedCategory === cat.name ? '#fff' : Colors.textColor} 
-                            style={{ marginRight: 5 }} 
-                        />
-                        <Text style={{ 
-                            color: selectedCategory === cat.name ? '#fff' : Colors.textColor, 
-                            fontWeight: '500' 
-                        }}>
-                            {cat.name}
-                        </Text>
-                    </TouchableOpacity>
-                ))}
-            </View>
+          <View style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            marginBottom: 30,
+            justifyContent: 'space-between'
+          }}>
+            {categories.map((cat) => (
+              <TouchableOpacity
+                key={cat.name}
+                onPress={() => setSelectedCategory(cat.name)}
+                style={{
+                  backgroundColor: selectedCategory === cat.name ? Global.colors.mainColor : '#fff',
+                  padding: 12,
+                  borderRadius: 10,
+                  marginBottom: 10,
+                  borderWidth: 1,
+                  borderColor: selectedCategory === cat.name ? Global.colors.mainColor : '#EFEFEF',
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  minWidth: 100,
+                  justifyContent: 'center',
+
+                }}
+              >
+                <Ionicons
+                  name={cat.icon}
+                  size={18}
+                  color={selectedCategory === cat.name ? '#fff' : Global.colors.textColor}
+                  style={{ marginRight: 5 }}
+                />
+                <Text style={{
+                  color: selectedCategory === cat.name ? '#fff' : Global.colors.textColor,
+                  fontWeight: '500'
+                }}>
+                  {cat.name}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
         </View>
 
         <TextInput
@@ -122,7 +115,7 @@ export default function AddExpenseScreen({ navigation }) {
           value={description}
           onChangeText={setDescription}
           style={{
-            backgroundColor: Colors.inputBg,
+            backgroundColor: Global.colors.inputBg,
             fontSize: 16,
             padding: 20,
             borderRadius: 15,
@@ -133,9 +126,9 @@ export default function AddExpenseScreen({ navigation }) {
         />
 
         <TouchableOpacity
-          onPress={handleSaveExpense} 
+          onPress={handleSaveExpense}
           style={{
-            backgroundColor: Colors.mainColor,
+            backgroundColor: Global.colors.mainColor,
             paddingVertical: 18,
             borderRadius: 30,
             alignItems: 'center',
@@ -150,7 +143,7 @@ export default function AddExpenseScreen({ navigation }) {
             Salvar
           </Text>
         </TouchableOpacity>
-        
+
       </View>
     </SafeAreaView>
   );
